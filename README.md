@@ -30,13 +30,15 @@
 
 GRIMOIRE is a responsive web-based storytelling platform inspired by early-2000s web aesthetics, digital diaries, and interactive fiction. Users explore a virtual "Dollhouse" environment containing:
 
-- **Personal Diary** with mood tracking and encryption
-- **Scrapbook** with vintage polaroid effects
-- **Art Studio** with MS Paint-style tools
-- **Tale Threads** — collaborative story editing with proposal voting
-- **Chains** — reflection sessions with live cursors
-- **Gilded Parlour** — gothic forum discussions
-- **Library** — read and write stories with atmospheric effects
+- **Personal Diary** with mood tracking and client-side encryption
+- **Scrapbook** with vintage polaroid effects and investigation board mode
+- **Art Studio** with MS Paint-style tools and haunted effects
+- **Tale Threads** — two-tab collaborative system (Reflection Sessions + GitHub-style projects)
+- **Chains (Reflection Sessions)** — real-time writing sessions with live cursor tracking
+- **Tea Room (Forum)** — séance-themed gothic forum discussions
+- **Library** — read and write stories with genre-based atmospheric effects
+- **Windows 98 Desktop** — retro desktop interface with taskbar and windows
+- **MySpace Profiles** — early-2000s social profiles with Top 8 friends
 
 The interface responds to user behavior: tab switching, cursor inactivity, writing focus, and page exit trigger subtle animations and environmental changes.
 
@@ -175,50 +177,73 @@ graph TB
 - Virtual rooms representing different content types
 - Smooth transitions with curtain animations
 - Responsive to user behavior (idle, tab switch, cursor movement)
+- Multiple themed rooms (Diary, Scrapbook, Art Studio, Archive, Boudoir)
 
 ### 📔 Diary System
-- Encrypted personal entries with mood tracking
-- Vintage typewriter aesthetic
+- Client-side encrypted personal entries with mood tracking
+- Vintage typewriter aesthetic with magical typing effects
 - Auto-save with visual indicators
 - Focus mode for distraction-free writing
+- Confession chamber with history log
 
 ### 📸 Scrapbook
 - Vintage polaroid effects and filters
-- Drag-and-drop upload
+- Drag-and-drop upload with flashbulb effects
 - Sticker picker and scratch-off secrets
 - Investigation board mode with red string connections
+- Pinterest-style collections
 
 ### 🎨 Art Studio
-- MS Paint-inspired interface
-- Custom brushes with haunted effects
+- MS Paint-inspired interface with Gothic aesthetics
+- Custom brushes with haunted effects (dripping blood, spectral glow)
 - Canvas distortions and glitch effects
 - Gallery with masonry layout
+- Layer system and advanced tools
 
-### 🧵 Tale Threads (Collaborative Stories)
-- Create projects with permission models
-- Submit proposals for story changes
-- Voting system with integrity index
-- Diff engine shows changes
-- Merge approved proposals
+### 🧵 Tale Threads (Collaborative Writing)
+**Two-Tab System:**
+1. **Reflection Sessions** — Real-time collaborative writing with:
+   - Live cursor tracking showing where others are typing
+   - Shared editor with synchronized updates
+   - Participant presence indicators
+   - Timed writing sprints
+   - Shared scrapbook
 
-### ⛓️ Chains (Reflection Sessions)
-- Real-time collaborative editing
-- Live cursor tracking
-- Shared scrapbook
-- Participant presence indicators
+2. **Collaborative Stories** — GitHub-style project system with:
+   - Create projects with permission models
+   - Submit proposals for story changes
+   - Voting system with integrity index
+   - Diff engine showing changes
+   - Merge approved proposals
 
-### 🕯️ Gilded Parlour (Forum)
-- Gothic library aesthetic
-- Threaded discussions
-- Candle-based likes
+### 🕯️ Tea Room (Forum)
+- Séance-themed gothic aesthetic
+- Floating candles and atmospheric effects
+- Threaded discussions with replies
+- Tag-based filtering
 - Content moderation tools
 
 ### 📚 Library
-- Read and write stories
-- Genre-based atmospheric effects
-- Bookmark and quote saving
+- Read and write stories with novel editor
+- Genre-based atmospheric effects (horror fog, romance sparkles, etc.)
+- Bookmark and quote saving system
 - Torch lighting effects
 - Reading history tracking
+- Archive room with vintage book covers
+
+### 🪟 Windows 98 Desktop
+- Retro desktop interface with taskbar
+- Start menu with applications
+- Draggable windows
+- System tray and clock
+- Authentic Windows 98 aesthetics
+
+### 👤 MySpace Profiles
+- Early-2000s social profile pages
+- Top 8 friends system
+- Profile customization (colors, layouts)
+- Visitor counter
+- Profile songs and comments
 
 ---
 

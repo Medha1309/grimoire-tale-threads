@@ -15,7 +15,7 @@ GRIMOIRE: Tale Threads
 ## Tagline (< 200 characters)
 
 ```
-A gothic storytelling platform with collaborative editing, real-time sessions, and immersive environments—built with Kiro AI.
+A gothic storytelling platform with 30+ pages: collaborative writing, real-time sessions, retro aesthetics, and immersive environments—built with Kiro AI.
 ```
 
 ---
@@ -82,7 +82,7 @@ GRIMOIRE started as a Halloween diary experiment, inspired by early-2000s web ae
 ## What It Does (3-4 sentences)
 
 ```
-GRIMOIRE is a web-based gothic storytelling platform with multiple interactive features. Users explore a virtual "Dollhouse" environment containing personal diaries, scrapbooks, art studios, and collaborative story spaces. The interface responds to user behavior—tab switching, cursor inactivity, writing focus—with subtle animations and environmental changes. Key features include Tale Threads (collaborative story editing with voting), Chains (real-time reflection sessions), a gothic forum, and an atmospheric library system.
+GRIMOIRE is a web-based gothic storytelling platform with 30+ fully functional pages. Users explore a virtual "Dollhouse" environment containing personal diaries, scrapbooks, art studios, and collaborative story spaces. The interface responds to user behavior—tab switching, cursor inactivity, writing focus—with subtle animations and environmental changes. Key features include Tale Threads (two-tab collaborative system with real-time sessions and GitHub-style projects), Tea Room (séance-themed forum), atmospheric library, Windows 98 desktop, and MySpace profiles.
 ```
 
 ---
