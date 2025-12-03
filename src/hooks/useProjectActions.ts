@@ -56,6 +56,15 @@ export const useProjectActions = () => {
         visibility: PROJECT_CONFIG.defaults.visibility,
         maxCoAuthors: settings.maxCoAuthors || PROJECT_CONFIG.defaults.maxCoAuthors,
         requireApproval: settings.requireApproval ?? PROJECT_CONFIG.defaults.requireApproval,
+        maxOpenProposals: PROJECT_CONFIG.defaults.maxOpenProposals,
+        votingDuration: PROJECT_CONFIG.defaults.votingDuration,
+        stats: {
+          proposalCount: 0,
+          mergedCount: 0,
+          contributorCount: 1,
+          versionCount: 1,
+        },
+        currentVersionId: `v1_${projectId}`,
         createdAt: serverTimestamp() as any,
         updatedAt: serverTimestamp() as any,
       };
@@ -69,6 +78,70 @@ export const useProjectActions = () => {
       return projectId;
     } catch (error) {
       console.error('Error creating project:', error);
+      showToast('Failed to create project', 'error');
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createStandaloneProject = async (data: {
+    title: string;
+    description?: string;
+    genre: string;
+    initialContent?: string;
+    maxCoAuthors?: number;
+    requireApproval?: boolean;
+  }): Promise<string> => {
+    if (!currentUser) throw new Error('Must be authenticated');
+
+    setLoading(true);
+    try {
+      const projectId = `proj_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const projectRef = doc(db, 'collaborativeProjects', projectId);
+
+      const owner: CoAuthor = {
+        userId: currentUser.uid,
+        displayName: currentUser.displayName || 'Anonymous',
+        role: 'owner',
+        joinedAt: serverTimestamp() as any,
+        contributionCount: 0,
+      };
+
+      const project: Omit<CollaborativeProject, 'id'> = {
+        ownerId: currentUser.uid,
+        ownerName: currentUser.displayName || 'Anonymous',
+        title: data.title,
+        genre: data.genre,
+        description: data.description,
+        currentContent: data.initialContent || '',
+        coAuthors: [owner],
+        status: 'recruiting',
+        visibility: 'public',
+        maxCoAuthors: data.maxCoAuthors || PROJECT_CONFIG.defaults.maxCoAuthors,
+        requireApproval: data.requireApproval ?? PROJECT_CONFIG.defaults.requireApproval,
+        maxOpenProposals: PROJECT_CONFIG.defaults.maxOpenProposals,
+        votingDuration: PROJECT_CONFIG.defaults.votingDuration,
+        stats: {
+          proposalCount: 0,
+          mergedCount: 0,
+          contributorCount: 1,
+          versionCount: 1,
+        },
+        currentVersionId: `v1_${projectId}`,
+        createdAt: serverTimestamp() as any,
+        updatedAt: serverTimestamp() as any,
+      };
+
+      await setDoc(projectRef, project);
+
+      // Log activity
+      await logActivity(projectId, 'project_created', {});
+
+      showToast('Project created successfully!', 'success');
+      return projectId;
+    } catch (error) {
+      console.error('Error creating standalone project:', error);
       showToast('Failed to create project', 'error');
       throw error;
     } finally {
@@ -339,6 +412,7 @@ export const useProjectActions = () => {
   return {
     loading,
     createProject,
+    createStandaloneProject,
     requestToJoin,
     approveJoinRequest,
     rejectJoinRequest,

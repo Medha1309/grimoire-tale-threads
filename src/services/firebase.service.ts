@@ -31,6 +31,9 @@ import { db } from '../lib/firebase';
 import { handleError, withErrorHandling } from '../utils/errorHandling';
 import { COLLECTIONS } from '../constants/app';
 
+// Re-export db for convenience
+export { db };
+
 /**
  * Generic document operations
  */

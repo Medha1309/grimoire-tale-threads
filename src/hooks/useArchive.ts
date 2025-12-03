@@ -112,6 +112,7 @@ export const useArchive = (contentType: ArchiveContentType) => {
       readingCount: readingItems.length,
       scrapbookCount: scrapbookItems.length,
       artCount: artItems.length,
+      gameCount: 0, // Games not yet implemented
       oldestItem,
       newestItem,
     };

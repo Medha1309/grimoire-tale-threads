@@ -152,3 +152,43 @@ export const getVotingTimeRemaining = (proposal: Proposal): string | null => {
 
   return `${minutes}m remaining`;
 };
+
+/**
+ * Alias for getVotingTimeRemaining
+ */
+export const formatTimeRemaining = getVotingTimeRemaining;
+
+/**
+ * Calculate voting result based on votes
+ */
+export const calculateVotingResult = (
+  proposal: Proposal,
+  coAuthors: CoAuthor[]
+): { approved: boolean; rejected: boolean; reason?: string } => {
+  const summary = calculateVoteSummary(proposal, coAuthors);
+  
+  // Check for owner reject
+  const ownerReject = proposal.votes.some((v) => v.type === 'reject' && v.voterRole === 'owner');
+  if (ownerReject) {
+    return { approved: false, rejected: true, reason: 'Owner rejected' };
+  }
+  
+  // Check for reviewer reject
+  const reviewerReject = proposal.votes.some((v) => v.type === 'reject' && v.voterRole === 'reviewer');
+  if (reviewerReject && summary.rejectPercent >= 20) {
+    return { approved: false, rejected: true, reason: 'Reviewer rejected' };
+  }
+  
+  // Check for majority reject
+  if (summary.rejectPercent >= 40) {
+    return { approved: false, rejected: true, reason: 'Majority rejected' };
+  }
+  
+  // Check for approval
+  if (summary.approvePercent >= 60) {
+    return { approved: true, rejected: false };
+  }
+  
+  // Still voting
+  return { approved: false, rejected: false };
+};

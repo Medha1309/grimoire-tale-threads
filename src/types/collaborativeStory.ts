@@ -6,35 +6,36 @@ import { Timestamp } from 'firebase/firestore';
  */
 
 // Status types
-export type ProjectStatus = 'recruiting' | 'active' | 'archived';
-export type ProposalStatus = 'draft' | 'voting' | 'approved' | 'rejected' | 'merged';
+export type ProjectStatus = 'recruiting' | 'active' | 'archived' | 'finalizing';
+export type ProposalStatus = 'draft' | 'voting' | 'approved' | 'rejected' | 'merged' | 'pending' | 'expired';
 export type CoAuthorRole = 'owner' | 'reviewer' | 'contributor';
-export type VoteType = 'approve' | 'request_changes' | 'reject';
-export type ProposalType = 'new_chapter' | 'edit' | 'character' | 'plot';
+export type VoteType = 'approve' | 'request_changes' | 'reject' | 'abstain';
+export type ProposalType = 'new_chapter' | 'edit' | 'character' | 'plot' | 'minor_edit' | 'major_edit' | 'character_change' | 'plot_change';
 
 // Collaborative Project (like a GitHub repository)
 export interface CollaborativeProject {
   id: string;
-  linkedStoryId: string; // Reference to Library story
+  linkedStoryId?: string; // Optional - Reference to Library story
   ownerId: string;
   ownerName: string;
-  title: string; // Synced from story
-  genre: string; // Synced from story
+  title: string; // Synced from story or standalone
+  genre: string; // Synced from story or standalone
   description?: string;
+  currentContent?: string; // Current story content
   
   coAuthors: CoAuthor[];
   status: ProjectStatus;
   visibility: 'public' | 'private' | 'invite-only';
-  currentVersionId: string; // Current version of the story
+  currentVersionId?: string; // Current version of the story
   
   // Settings
   maxCoAuthors: number; // Default 10
   requireApproval: boolean; // Default true
-  maxOpenProposals: number; // Default 10
-  votingDuration: number; // Hours, default 48
+  maxOpenProposals?: number; // Default 10
+  votingDuration?: number; // Hours, default 48
   
   // Stats
-  stats: {
+  stats?: {
     proposalCount: number;
     mergedCount: number;
     contributorCount: number;
@@ -44,6 +45,12 @@ export interface CollaborativeProject {
   // Metadata
   createdAt: Timestamp;
   updatedAt: Timestamp;
+  finalizedAt?: Timestamp;
+  signatures?: Record<string, {
+    userId: string;
+    userName: string;
+    signedAt: Timestamp;
+  }>;
 }
 
 // Co-Author
@@ -68,7 +75,9 @@ export interface Proposal {
   
   // Content
   content: string; // Full proposed content (Markdown)
-  baseVersionId: string; // Version this is based on
+  proposedText?: string; // Alternative field name for proposed content
+  baseVersionId?: string; // Version this is based on
+  targetSection?: string; // Section being edited
   
   // Voting system
   status: ProposalStatus;
@@ -159,11 +168,23 @@ export interface Activity {
     | 'vote_cast'
     | 'proposal_merged'
     | 'proposal_rejected'
+    | 'proposal_approved'
     | 'coauthor_joined'
     | 'coauthor_removed'
-    | 'comment_added';
+    | 'coauthor_left'
+    | 'comment_added'
+    | 'story_finalized'
+    | 'signature_added';
   metadata: Record<string, any>;
   createdAt: Timestamp;
+}
+
+// Content change type for diff engine
+export interface ContentChange {
+  type: 'added' | 'removed' | 'modified';
+  lineNumber: number;
+  content: string;
+  oldContent?: string;
 }
 
 // Invitation (to join project)

@@ -26,6 +26,7 @@ export interface ChainSession {
   turnStartedAt?: Timestamp;
   turnTimeLimit: number; // milliseconds (default 5 minutes = 300000)
   lostParticipants: string[]; // userIds of participants who timed out
+  ownerId?: string; // Owner of the session (for permissions)
   
   // Settings
   isPublic: boolean;
@@ -54,7 +55,8 @@ export interface ChainParticipant {
 export interface ChainSegment {
   id: string;
   authorId: string;
-  authorName: string;
+  authorName?: string; // Optional for backwards compatibility
+  author?: string; // Legacy field name
   content: string;
   createdAt: Timestamp;
   hash: string; // Content integrity hash (djb2)
