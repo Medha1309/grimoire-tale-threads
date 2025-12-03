@@ -1,4 +1,4 @@
-# 🕯️ GRIMOIRE: Tale Threads
+# GRIMOIRE: Tale Threads
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI Status](https://github.com/{{YOUR_USERNAME}}/grimoire-tale-threads/workflows/CI/badge.svg)](https://github.com/{{YOUR_USERNAME}}/grimoire-tale-threads/actions)
@@ -11,7 +11,7 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [About](#about)
 - [How Kiro Was Used](#how-kiro-was-used)
@@ -26,7 +26,7 @@
 
 ---
 
-## 🎭 About
+## About
 
 GRIMOIRE is a responsive web-based storytelling platform inspired by early-2000s web aesthetics, digital diaries, and interactive fiction. Users explore a virtual "Dollhouse" environment containing:
 
@@ -44,7 +44,7 @@ The interface responds to user behavior: tab switching, cursor inactivity, writi
 
 ---
 
-## 🤖 How Kiro Was Used
+## How Kiro Was Used
 
 ### Vibe Coding
 **Strategy:** Close-ended questions for precision.  
@@ -94,7 +94,7 @@ Extended Kiro capabilities for:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 graph TB
@@ -171,36 +171,36 @@ graph TB
 
 ---
 
-## ✨ Features
+## Features
 
-### 🏚️ Dollhouse Environment
+### Dollhouse Environment
 - Virtual rooms representing different content types
 - Smooth transitions with curtain animations
 - Responsive to user behavior (idle, tab switch, cursor movement)
 - Multiple themed rooms (Diary, Scrapbook, Art Studio, Archive, Boudoir)
 
-### 📔 Diary System
+### Diary System
 - Client-side encrypted personal entries with mood tracking
 - Vintage typewriter aesthetic with magical typing effects
 - Auto-save with visual indicators
 - Focus mode for distraction-free writing
 - Confession chamber with history log
 
-### 📸 Scrapbook
+### Scrapbook
 - Vintage polaroid effects and filters
 - Drag-and-drop upload with flashbulb effects
 - Sticker picker and scratch-off secrets
 - Investigation board mode with red string connections
 - Pinterest-style collections
 
-### 🎨 Art Studio
+### Art Studio
 - MS Paint-inspired interface with Gothic aesthetics
 - Custom brushes with haunted effects (dripping blood, spectral glow)
 - Canvas distortions and glitch effects
 - Gallery with masonry layout
 - Layer system and advanced tools
 
-### 🧵 Tale Threads (Collaborative Writing)
+### Tale Threads (Collaborative Writing)
 **Two-Tab System:**
 1. **Reflection Sessions** — Real-time collaborative writing with:
    - Live cursor tracking showing where others are typing
@@ -216,14 +216,14 @@ graph TB
    - Diff engine showing changes
    - Merge approved proposals
 
-### 🕯️ Tea Room (Forum)
+### Tea Room (Forum)
 - Séance-themed gothic aesthetic
 - Floating candles and atmospheric effects
 - Threaded discussions with replies
 - Tag-based filtering
 - Content moderation tools
 
-### 📚 Library
+### Library
 - Read and write stories with novel editor
 - Genre-based atmospheric effects (horror fog, romance sparkles, etc.)
 - Bookmark and quote saving system
@@ -231,14 +231,14 @@ graph TB
 - Reading history tracking
 - Archive room with vintage book covers
 
-### 🪟 Windows 98 Desktop
+### Windows 98 Desktop
 - Retro desktop interface with taskbar
 - Start menu with applications
 - Draggable windows
 - System tray and clock
 - Authentic Windows 98 aesthetics
 
-### 👤 MySpace Profiles
+### MySpace Profiles
 - Early-2000s social profile pages
 - Top 8 friends system
 - Profile customization (colors, layouts)
@@ -247,7 +247,7 @@ graph TB
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** React 18, TypeScript, Vite
 - **Styling:** TailwindCSS, Framer Motion
@@ -259,7 +259,7 @@ graph TB
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -310,7 +310,7 @@ graph TB
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Run All Tests
 ```bash
@@ -344,7 +344,7 @@ pnpm type-check
 
 ---
 
-## 📦 Deployment
+## Deployment
 
 ### Vercel (Primary)
 
@@ -376,7 +376,7 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
 
 ---
 
-## 👨‍⚖️ For Judges
+## For Judges
 
 ### Testing the Live Demo
 
@@ -424,7 +424,7 @@ See [SECURITY.md](./SECURITY.md) for details on:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
@@ -432,7 +432,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](./LICEN
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with [Kiro AI](https://kiro.ai) — AI-assisted development platform
 - Inspired by early-2000s web aesthetics and interactive fiction
@@ -443,5 +443,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](./LICEN
 
 ---
 
-**Built for the Kiro Hackathon 2025** 🎃  
+**Built for the Kiro Hackathon 2025**  
 **Repository:** [github.com/Medha1309/grimoire-tale-threads](https://github.com/Medha1309/grimoire-tale-threads)
