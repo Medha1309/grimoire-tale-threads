@@ -37,20 +37,20 @@ react, typescript, vite, firebase, firestore, tailwindcss, framer-motion, playwr
 
 ## Try It Out Links
 
-**Demo URL:**
-```
-{{DEMO_URL}}
-```
-
 **GitHub Repository:**
 ```
-{{REPO_URL}}
+https://github.com/Medha1309/grimoire-tale-threads
+```
+
+**Demo URL:**
+```
+[Add your deployed URL here when ready]
 ```
 
 **Test Credentials:**
 ```
 Username: judge@grimoire.test
-Password: JudgeDemo2024!
+Password: JudgeDemo2025!
 ```
 
 ---
@@ -58,7 +58,7 @@ Password: JudgeDemo2024!
 ## Video Demo Link
 
 ```
-{{VIDEO_URL}}
+[Add your video URL here when ready]
 ```
 
 ---
@@ -66,7 +66,7 @@ Password: JudgeDemo2024!
 ## Short Description (for social sharing, ~140 characters)
 
 ```
-Gothic storytelling platform with collaborative editing & real-time sessions. Built with Kiro AI. Try it: {{DEMO_URL}}
+Gothic storytelling platform with 30+ pages, collaborative editing & real-time sessions. Built with Kiro AI.
 ```
 
 ---
@@ -186,11 +186,11 @@ Workflow improvements: Reduced iteration time through parallel task processing, 
 ## Testing Instructions (50-75 words)
 
 ```
-Live Demo (Recommended): Visit {{DEMO_URL}}, login with judge@grimoire.test / JudgeDemo2024!, follow demo-script.md.
+Run Locally: Clone https://github.com/Medha1309/grimoire-tale-threads, run pnpm install, copy .env.example to .env with Firebase credentials, run pnpm dev. See TESTING_INSTRUCTIONS.md for detailed setup.
 
-Run Locally: Clone {{REPO_URL}}, run pnpm install, copy .env.example to .env with Firebase credentials, run pnpm dev. See TESTING_INSTRUCTIONS.md.
+Run Tests: pnpm test:unit (unit tests), pnpm test:e2e (E2E tests). Comprehensive test coverage across components, hooks, and integration flows.
 
-Run Tests: pnpm test:unit (unit tests), pnpm test:e2e (E2E tests), pnpm test:all (all tests). Test coverage: 85%.
+Demo credentials: judge@grimoire.test / JudgeDemo2025!
 ```
 
 ---
@@ -206,7 +206,7 @@ MIT License (OSI-approved)
 ## Team
 
 ```
-Solo Developer: {{YOUR_NAME}}
+Solo Developer
 Role: Full-stack developer, designer, and Kiro prompt engineer
 ```
 
@@ -216,22 +216,22 @@ Role: Full-stack developer, designer, and Kiro prompt engineer
 
 **Documentation:**
 ```
-{{REPO_URL}}/blob/main/README.md
+https://github.com/Medha1309/grimoire-tale-threads/blob/main/README.md
 ```
 
 **Kiro Usage:**
 ```
-{{REPO_URL}}/tree/main/.kiro
+https://github.com/Medha1309/grimoire-tale-threads/tree/main/.kiro
 ```
 
 **Demo Script:**
 ```
-{{REPO_URL}}/blob/main/demo-script.md
+https://github.com/Medha1309/grimoire-tale-threads/blob/main/demo-script.md
 ```
 
 **Security Policy:**
 ```
-{{REPO_URL}}/blob/main/SECURITY.md
+https://github.com/Medha1309/grimoire-tale-threads/blob/main/SECURITY.md
 ```
 
 ---
@@ -244,15 +244,14 @@ Just submitted GRIMOIRE: Tale Threads to @kiro_ai Hackathon! 🕯️
 
 A gothic storytelling platform with collaborative editing, real-time sessions, and immersive environments—built entirely with Kiro AI.
 
-Try it: {{DEMO_URL}}
-Code: {{REPO_URL}}
+Code: https://github.com/Medha1309/grimoire-tale-threads
 
 #KiroHackathon #AI #WebDev #Gothic
 ```
 
 **LinkedIn:**
 ```
-Excited to share my submission for the Kiro Hackathon 2024! 🎉
+Excited to share my submission for the Kiro Hackathon 2025! 🎉
 
 GRIMOIRE: Tale Threads is a gothic storytelling platform that combines early-2000s web nostalgia with modern collaborative features. Built entirely with Kiro AI-assisted development.
 
@@ -264,14 +263,13 @@ Key features:
 
 Technical highlights:
 • React + TypeScript + Firebase
-• 200+ components, 85% test coverage
+• 200+ components, 30+ pages
 • Event-driven state machines
 • Performance optimized for all devices
 
 Kiro AI helped me achieve 60% faster development through vibe coding, agent hooks, specs, steering docs, and MCP.
 
-Try it: {{DEMO_URL}}
-Code: {{REPO_URL}}
+Code: https://github.com/Medha1309/grimoire-tale-threads
 
 #KiroHackathon #AI #WebDevelopment #React #Firebase
 ```
@@ -286,5 +284,5 @@ Code: {{REPO_URL}}
 
 ---
 
-**Last Updated:** December 2, 2024  
+**Last Updated:** December 3, 2025  
 **Ready to copy and paste into Devpost!** 🚀

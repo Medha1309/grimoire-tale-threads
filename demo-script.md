@@ -3,7 +3,7 @@
 Step-by-step checklist to validate GRIMOIRE: Tale Threads functionality.
 
 **Estimated Time:** 15-20 minutes  
-**Demo URL:** [{{DEMO_URL}}]({{DEMO_URL}})
+**Repository:** [github.com/Medha1309/grimoire-tale-threads](https://github.com/Medha1309/grimoire-tale-threads)
 
 ---
 
@@ -11,11 +11,11 @@ Step-by-step checklist to validate GRIMOIRE: Tale Threads functionality.
 
 ### Login
 
-- [ ] Navigate to [{{DEMO_URL}}]({{DEMO_URL}})
+- [ ] Navigate to the deployed application (or run locally with `pnpm dev`)
 - [ ] Click **Login** button
 - [ ] Enter credentials:
   - **Email:** `judge@grimoire.test`
-  - **Password:** `JudgeDemo2024!`
+  - **Password:** `JudgeDemo2025!`
 - [ ] Click **Sign In**
 - [ ] **Verify:** You're redirected to the Dollhouse
 
@@ -387,8 +387,7 @@ Document any known issues or limitations:
 
 **Questions during evaluation?**
 
-- **Email:** {{YOUR_EMAIL}}
-- **GitHub Issues:** [{{REPO_URL}}/issues]({{REPO_URL}}/issues)
+- **GitHub Issues:** [github.com/Medha1309/grimoire-tale-threads/issues](https://github.com/Medha1309/grimoire-tale-threads/issues)
 - **Documentation:** [README.md](./README.md)
 
 ---
@@ -401,5 +400,5 @@ Thank you for taking the time to evaluate GRIMOIRE: Tale Threads. We hope you en
 
 ---
 
-**Last Updated:** December 2, 2024  
+**Last Updated:** December 3, 2025  
 **Demo Version:** 1.0.0

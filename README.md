@@ -441,12 +441,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](./LICEN
 
 ---
 
-## 📞 Contact
-
-**Maintainer:** {{YOUR_NAME}}  
-**Email:** {{YOUR_EMAIL}}  
-**GitHub:** [@{{YOUR_USERNAME}}](https://github.com/{{YOUR_USERNAME}})
-
 ---
 
-**Built for the Kiro Hackathon 2024** 🎃
+**Built for the Kiro Hackathon 2025** 🎃  
+**Repository:** [github.com/Medha1309/grimoire-tale-threads](https://github.com/Medha1309/grimoire-tale-threads)

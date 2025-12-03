@@ -40,6 +40,112 @@ These aren't gimmicks—they're carefully tuned interactions that make the platf
 
 ---
 
+## � BHuilt With
+
+### Frontend Framework & Core
+- **React 18.3** — Component-based UI library with hooks and concurrent features
+- **TypeScript 5.6** — Type-safe JavaScript with strict mode enabled
+- **Vite 5.4** — Lightning-fast build tool and dev server with HMR
+- **React Router DOM 7.9** — Client-side routing and navigation
+
+### Styling & Animation
+- **TailwindCSS 3.4** — Utility-first CSS framework with custom gothic design tokens
+- **Framer Motion 11.2** — Production-ready animation library for React
+- **PostCSS 8.4** — CSS transformation and autoprefixing
+- **Custom CSS** — Vintage effects (parchment scrolls, typewriter animations, glitch effects)
+
+### 3D Graphics & Visual Effects
+- **Three.js 0.181** — WebGL 3D graphics library
+- **React Three Fiber 9.0** — React renderer for Three.js
+- **React Three Drei 9.122** — Useful helpers for React Three Fiber
+- **React Three Postprocessing 3.0** — Post-processing effects (bloom, glitch, distortion)
+
+### Backend & Database
+- **Firebase 12.5** — Backend-as-a-Service platform
+  - **Firebase Authentication** — User management with JWT tokens
+  - **Cloud Firestore** — NoSQL real-time database
+  - **Firebase Storage** — Image and artwork hosting
+  - **Firestore Security Rules** — Server-side authorization
+  - **Firestore Indexes** — Query optimization
+
+### Real-Time Collaboration
+- **Firestore Real-Time Listeners** — Live data synchronization
+- **Custom Presence System** — Live cursor tracking and participant indicators
+- **Diff-Match-Patch 1.0** — Text diffing algorithm for proposal changes
+- **Optimistic Updates** — Instant UI feedback with conflict resolution
+
+### Security & Data Protection
+- **DOMPurify 3.2** — XSS protection for user-generated content
+- **Client-Side Encryption** — AES encryption for diary entries
+- **Rate Limiting Middleware** — API abuse prevention
+- **FIPPA-Compliant Data Handling** — Privacy regulation compliance
+- **Firestore Security Rules** — Role-based access control
+
+### UI Components & Interactions
+- **React Draggable 4.5** — Drag-and-drop functionality (Windows 98 desktop)
+- **React Masonry CSS 1.0** — Pinterest-style masonry layouts
+- **Custom Cursor System** — 10+ themed cursors per room
+- **Progressive Enhancement** — Device detection and adaptive rendering
+
+### Testing & Quality Assurance
+- **Vitest 4.0** — Fast unit testing framework with 85% coverage
+- **Playwright** — Cross-browser end-to-end testing
+- **React Testing Library 16.3** — Component testing with user-centric queries
+- **Testing Library Jest DOM 6.9** — Custom DOM matchers
+- **Testing Library User Event 14.6** — User interaction simulation
+- **JSDOM 27.2** — DOM environment for Node.js tests
+
+### Code Quality & Linting
+- **ESLint 9.39** — JavaScript/TypeScript linting
+- **TypeScript ESLint 8.48** — TypeScript-specific linting rules
+- **Prettier** — Opinionated code formatting
+- **TypeScript Strict Mode** — Maximum type safety
+
+### Development Tools & AI Assistance
+- **Kiro AI** — AI-assisted development platform
+  - **Vibe Coding** — Close-ended precision questions
+  - **Agent Hooks** — Automated workflows and triggers
+  - **Spec-Driven Development** — Structured feature specifications
+  - **Steering Documents** — Context preservation across sessions
+  - **MCP (Model Context Protocol)** — Systematic refactoring at scale
+- **Git & GitHub** — Version control and collaboration
+- **GitHub Actions** — CI/CD pipeline with automated testing
+
+### Utilities & Helpers
+- **date-fns 4.1** — Modern date utility library
+- **Custom Animation Controller** — Performance-optimized animation management
+- **Device Detection** — Hardware capability detection
+- **Performance Monitor** — FPS tracking and memory usage monitoring
+
+### Deployment & Hosting
+- **Vercel** — Primary hosting platform with edge network
+- **Netlify** — Alternative deployment option
+- **Google Cloud Run** — Containerized deployment option
+- **Firebase Hosting** — Static site hosting with CDN
+
+### Design System
+- **Custom Design Tokens** — Gothic, Dollhouse, Parlour, Chains, Archive themes
+- **Typography System** — Playfair Display, Cormorant Garamond, Inter, Parisienne
+- **Color Palettes** — Blood red, bone white, candlelight gold, doll pink, matrix green
+- **Spacing & Layout** — Consistent spacing scale and layout components
+- **Button System** — Unified button variants across all themes
+
+### Performance Optimizations
+- **Lazy Loading** — Code splitting and dynamic imports (60% bundle reduction)
+- **Image Optimization** — WebP format, responsive sizing, lazy loading
+- **Animation Throttling** — Reduced motion support and GPU acceleration
+- **Bundle Optimization** — Manual chunking, tree shaking, dead code elimination
+- **CSS Code Splitting** — Per-route CSS loading
+- **Asset Inlining** — Inline assets under 4KB
+- **Module Preloading** — Predictive resource loading
+
+### Browser Support
+- **Desktop:** Chrome, Firefox, Safari, Edge (latest 2 versions)
+- **Mobile:** Chrome (Android), Safari (iOS)
+- **Testing:** Playwright tests across all major browsers
+
+---
+
 ## 🛠️ How I Built It
 
 ### Technical Architecture
@@ -330,4 +436,5 @@ I hope GRIMOIRE inspires others to build interfaces that don't just function—t
 
 ---
 
-**Built with 🕯️ and Kiro AI for the Kiro Hackathon 2024**
+**Built with 🕯️ and Kiro AI for the Kiro Hackathon 2025**  
+**Repository:** [github.com/Medha1309/grimoire-tale-threads](https://github.com/Medha1309/grimoire-tale-threads)
