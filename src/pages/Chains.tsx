@@ -36,9 +36,16 @@ export const Chains: React.FC = () => {
   const { currentUser } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   
-  // Tab management
+  // Tab management - default to sessions tab
   const activeTab = searchParams.get('tab') || 'sessions';
   const sessionId = searchParams.get('session') || 'demo-the-digital-haunting';
+  
+  // Ensure we're on sessions tab by default on first load
+  useEffect(() => {
+    if (!searchParams.get('tab')) {
+      setSearchParams({ tab: 'sessions', session: sessionId });
+    }
+  }, []);
   
   const { sessions, loading: sessionsLoading, createSession, deleteSession } = useChainSessions();
   const { session, loading: sessionLoading, addSegment, joinSession, deleteSegment, updateSegment } = useChainSession(sessionId);
@@ -123,7 +130,7 @@ export const Chains: React.FC = () => {
     setSubmitting(true);
     try {
       await addSegment({
-        author: author || currentUser.displayName || 'Anonymous',
+        authorName: author || currentUser.displayName || 'Anonymous',
         authorId: currentUser.uid,
         content: trimmed,
       });
@@ -167,18 +174,25 @@ export const Chains: React.FC = () => {
       const newSessionId = await createSession({
         title: newChainTitle.trim(),
         description: newChainDescription.trim() || undefined,
+        createdBy: currentUser.uid,
+        createdByName: currentUser.displayName || 'Anonymous',
         ownerId: currentUser.uid,
-        ownerName: currentUser.displayName || 'Anonymous',
         segments: [],
         participants: [
           {
             userId: currentUser.uid,
             displayName: currentUser.displayName || 'Anonymous',
             joinedAt: Timestamp.now(),
+            segmentCount: 0,
           },
         ],
+        status: 'active',
         isPublic: true,
+        requireApproval: false,
+        enableGhostSegments: false,
         maxParticipants: 50,
+        turnTimeLimit: 300000,
+        lostParticipants: [],
       });
 
       console.log('Chain session created successfully with ID:', newSessionId);
@@ -454,7 +468,7 @@ export const Chains: React.FC = () => {
                       >
                         <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-1.5 group-hover:text-slate-300 transition-colors">
                           <span className="truncate max-w-[8rem]">
-                            {segment.author}
+                            {segment.authorName || segment.author || 'Unknown'}
                           </span>
                           <div className="flex items-center gap-2">
                             <span className="text-slate-600 group-hover:text-slate-500 transition-colors">
@@ -561,7 +575,7 @@ export const Chains: React.FC = () => {
                       <span className="flex items-center gap-2">
                         <span className="inline-flex h-[7px] w-[7px] rounded-full bg-emerald-400/80 shadow-[0_0_8px_rgba(52,211,153,0.7)] group-hover:shadow-[0_0_12px_rgba(52,211,153,0.9)] transition-shadow" />
                         <span>
-                          {segments[activeIndex]?.author ?? 'Unknown author'}
+                          {segments[activeIndex]?.authorName || segments[activeIndex]?.author || 'Unknown author'}
                         </span>
                       </span>
                       <span className="text-slate-600 group-hover:text-slate-500 transition-colors">

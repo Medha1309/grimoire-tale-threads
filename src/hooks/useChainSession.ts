@@ -12,7 +12,6 @@ import {
   orderBy,
   addDoc,
   setDoc,
-  deleteDoc,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { ChainSession, ChainSegment } from '../types/chainSession';
@@ -53,7 +52,7 @@ export function useChainSession(sessionId: string | null) {
     return () => unsubscribe();
   }, [sessionId]);
 
-  const addSegment = async (segment: Omit<ChainSegment, 'id' | 'createdAt' | 'hash'>) => {
+  const addSegment = async (segment: Omit<ChainSegment, 'id' | 'createdAt' | 'hash' | 'wordCount' | 'characterCount'>) => {
     if (!sessionId || !session) return;
 
     try {
@@ -62,11 +61,17 @@ export function useChainSession(sessionId: string | null) {
       // Calculate hash
       const hash = djb2Hash(segment.content);
       
+      // Calculate word and character counts
+      const wordCount = segment.content.trim().split(/\s+/).filter(Boolean).length;
+      const characterCount = segment.content.length;
+      
       const newSegment: ChainSegment = {
         ...segment,
         id: `s-${Date.now()}`,
         createdAt: Timestamp.now(),
         hash,
+        wordCount,
+        characterCount,
       };
 
       await updateDoc(sessionRef, {
@@ -95,6 +100,7 @@ export function useChainSession(sessionId: string | null) {
           userId,
           displayName,
           joinedAt: Timestamp.now(),
+          segmentCount: 0,
         }),
         updatedAt: serverTimestamp(),
       });
