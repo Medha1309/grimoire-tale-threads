@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Test User - GRIMOIRE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      color: #e5e5e5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: rgba(30, 30, 30, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #ffb6d9;
+      text-align: center;
+    }
+    
+    p {
+      color: #999;
+      margin-bottom: 30px;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .credentials {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 182, 217, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .credential-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .credential-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .credential-label {
+      color: #999;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .credential-value {
+      color: #ffb6d9;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+    
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ffb6d9 0%, #ff8fc7 100%);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 182, 217, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e5e5e5;
+    }
+    
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+    }
+    
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+    
+    .success {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #86efac;
+    }
+    
+    .error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+    
+    .info {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+    }
+    
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔮 Create Test User</h1>
+    <p>Quick setup for testing GRIMOIRE features</p>
+    
+    <div class="credentials">
+      <div class="credential-row">
+        <span class="credential-label">Email:</span>
+        <span class="credential-value">test@grimoire.app</span>
+      </div>
+      <div class="credential-row">
+        <span class="credential-label">Password:</span>
+        <span class="credential-value">TestUser123!</span>
+      </div>
+      <div class="credential-row">
+        <span class="credential-label">Display Name:</span>
+        <span class="credential-value">Test User</span>
+      </div>
+    </div>
+    
+    <div id="message" class="message hidden"></div>
+    
+    <button id="createBtn" onclick="createTestUser()">
+      Create Test User
+    </button>
+    
+    <button class="secondary-btn" onclick="goToSignUp()">
+      Go to Sign Up Page
+    </button>
+    
+    <button class="secondary-btn" onclick="goToLogin()">
+      Go to Login Page
+    </button>
+  </div>
+  
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    
+    // Get Firebase config from environment or use defaults
+    const firebaseConfig = {
+      apiKey: import.meta.env?.VITE_FIREBASE_API_KEY || "demo-api-key",
+      authDomain: import.meta.env?.VITE_FIREBASE_AUTH_DOMAIN || "demo.firebaseapp.com",
+      projectId: import.meta.env?.VITE_FIREBASE_PROJECT_ID || "demo-project",
+      storageBucket: import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET || "demo.appspot.com",
+      messagingSenderId: import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
+      appId: import.meta.env?.VITE_FIREBASE_APP_ID || "demo-app-id"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    
+    const TEST_USER = {
+      email: 'test@grimoire.app',
+      password: 'TestUser123!',
+      displayName: 'Test User',
+      bio: 'A test user exploring the dark corners of GRIMOIRE'
+    };
+    
+    window.createTestUser = async function() {
+      const btn = document.getElementById('createBtn');
+      const msg = document.getElementById('message');
+      
+      btn.disabled = true;
+      btn.textContent = 'Creating...';
+      msg.className = 'message hidden';
+      
+      try {
+        // Create user
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          TEST_USER.email,
+          TEST_USER.password
+        );
+        
+        const user = userCredential.user;
+        
+        // Update profile
+        await updateProfile(user, {
+          displayName: TEST_USER.displayName
+        });
+        
+        // Create Firestore profile
+        await setDoc(doc(db, 'users', user.uid), {
+          uid: user.uid,
+          email: TEST_USER.email,
+          displayName: TEST_USER.displayName,
+          bio: TEST_USER.bio,
+          createdAt: serverTimestamp(),
+          isAuthor: true,
+          forumPostCount: 0,
+          diaryEntryCount: 0,
+          totalLikesReceived: 0
+        });
+        
+        // Initialize interactions
+        await setDoc(doc(db, 'userInteractions', user.uid), {
+          likedStories: [],
+          bookmarkedStories: [],
+          ratings: {}
+        });
+        
+        msg.textContent = '✅ Test user created successfully! You can now log in.';
+        msg.className = 'message success';
+        btn.textContent = 'User Created!';
+        
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          msg.textContent = '✅ Test user already exists! You can log in now.';
+          msg.className = 'message info';
+          btn.textContent = 'User Already Exists';
+          btn.disabled = false;
+        } else {
+          msg.textContent = `❌ Error: ${error.message}`;
+          msg.className = 'message error';
+          btn.textContent = 'Try Again';
+          btn.disabled = false;
+        }
+      }
+    };
+    
+    window.goToSignUp = function() {
+      window.location.href = '/signup';
+    };
+    
+    window.goToLogin = function() {
+      window.location.href = '/login';
+    };
+  </script>
+</body>
+</html>

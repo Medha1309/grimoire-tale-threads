@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Forum Data - The Parlour</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #0a0a0a;
+      color: #e5e5e5;
+    }
+    .container {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 10, 10, 0.9) 100%);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    }
+    h1 {
+      color: #d4af37;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+      letter-spacing: 0.1em;
+    }
+    .subtitle {
+      text-align: center;
+      color: #a1a1a1;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 20px 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(139, 0, 0, 0.15) 100%);
+      border: 2px solid rgba(212, 175, 55, 0.4);
+      border-radius: 4px;
+      color: #d4af37;
+      font-size: 16px;
+      font-family: 'Georgia', serif;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(139, 0, 0, 0.25) 100%);
+      border-color: rgba(212, 175, 55, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #output {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .success { color: #4ade80; }
+    .error { color: #ef4444; }
+    .info { color: #60a5fa; }
+    .warning { color: #fbbf24; }
+    .post-preview {
+      background: rgba(212, 175, 55, 0.05);
+      border-left: 3px solid rgba(212, 175, 55, 0.3);
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+    .post-preview h3 {
+      color: #d4af37;
+      margin: 0 0 10px 0;
+      font-size: 1.1em;
+    }
+    .post-preview p {
+      color: #a1a1a1;
+      margin: 5px 0;
+      font-size: 0.9em;
+    }
+    .tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tag {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8em;
+      color: #d4af37;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🕯️ The Parlour</h1>
+    <p class="subtitle">Seed Demo Forum Posts</p>
+
+    <div class="post-preview">
+      <h3>📝 What will be created:</h3>
+      <p><strong>3 Demo Posts</strong> with engaging content about:</p>
+      <ul style="color: #a1a1a1; margin: 10px 0;">
+        <li>Symbolism of Mirrors in Gothic Literature</li>
+        <li>Unreliable Narrators in Mystery</li>
+        <li>AI-Generated Horror & The Uncanny Valley</li>
+      </ul>
+      <p style="margin-top: 10px;">Each post includes realistic engagement (likes, replies) and relevant tags.</p>
+    </div>
+
+    <button id="seedBtn" onclick="seedForumData()">
+      🌱 Seed Forum with Demo Posts
+    </button>
+
+    <button onclick="window.location.href='/parlour'" style="background: rgba(139, 0, 0, 0.15); border-color: rgba(139, 0, 0, 0.4);">
+      ← Back to Forum
+    </button>
+
+    <div id="output"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    // Get Firebase config from your app
+    const firebaseConfig = {
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const demoPosts = [
+      {
+        authorId: 'demo-user-1',
+        authorName: 'Eleanor Blackwood',
+        title: 'The Symbolism of Mirrors in Gothic Literature',
+        content: `I've been fascinated by how mirrors are used in gothic horror. They're not just reflective surfaces—they're portals, truth-tellers, and sometimes prisons for the soul.
+
+In "The Haunting of Hill House," mirrors distort reality. In "Carmilla," they reveal what shouldn't be seen. And in countless vampire tales, they expose the undead by showing nothing at all.
+
+What are your favorite uses of mirrors in horror? Do you think they represent self-reflection, or something more sinister?`,
+        tags: ['Horror', 'Gothic', 'Literary Analysis'],
+        likeCount: 23,
+        replyCount: 8,
+        isArchived: false,
+      },
+      {
+        authorId: 'demo-user-2',
+        authorName: 'Victor Ashford',
+        title: 'Unreliable Narrators: When Can We Trust the Voice?',
+        content: `Just finished a story where I realized halfway through that the narrator had been lying to me the entire time. It made me question everything I'd read.
+
+Unreliable narrators are brilliant when done well—they make you complicit in the deception. You WANT to believe them, even when the cracks start showing.
+
+But there's a fine line between "clever twist" and "cheap trick." What makes an unreliable narrator work for you? And which stories have done it best?
+
+Personally, I think the key is planting subtle clues that make sense in retrospect, without being obvious on first read.`,
+        tags: ['Mystery', 'Thriller', 'Writing Craft'],
+        likeCount: 17,
+        replyCount: 12,
+        isArchived: false,
+      },
+      {
+        authorId: 'demo-user-3',
+        authorName: 'Cordelia Graves',
+        title: 'The Uncanny Valley of AI-Generated Horror',
+        content: `Has anyone else noticed how AI-generated images have this inherent creepiness? The slightly-wrong proportions, the dead eyes, the fingers that don't quite work...
+
+It's like they exist in the uncanny valley—close enough to human to trigger recognition, but wrong enough to trigger revulsion. Perfect for horror, actually.
+
+I've been thinking about incorporating this aesthetic into a story. Not about AI itself, but about something that LOOKS almost human but isn't. Something that mimics us but gets the details wrong.
+
+The horror isn't in the monster being obviously monstrous—it's in the subtle wrongness that you can't quite put your finger on.
+
+Thoughts? Is this a new frontier for horror, or just a passing trend?`,
+        tags: ['Horror', 'Sci-Fi', 'Discussion'],
+        likeCount: 31,
+        replyCount: 15,
+        isArchived: false,
+      },
+    ];
+
+    window.seedForumData = async function() {
+      const btn = document.getElementById('seedBtn');
+      const output = document.getElementById('output');
+      
+      btn.disabled = true;
+      btn.textContent = '⏳ Seeding...';
+      output.innerHTML = '<div class="info">🌱 Starting forum data seeding...</div>';
+
+      try {
+        for (let i = 0; i < demoPosts.length; i++) {
+          const post = demoPosts[i];
+          
+          output.innerHTML += `<div class="info">📝 Creating post ${i + 1}/${demoPosts.length}: "${post.title}"</div>`;
+          
+          const docRef = await addDoc(collection(db, 'forum_posts'), {
+            ...post,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          });
+          
+          output.innerHTML += `<div class="success">   ✅ Created with ID: ${docRef.id}</div>`;
+        }
+
+        output.innerHTML += `
+          <div class="success" style="margin-top: 20px; padding: 15px; border: 2px solid #4ade80; border-radius: 4px;">
+            <strong>🎉 Forum seeding complete!</strong><br>
+            Created ${demoPosts.length} demo posts<br><br>
+            💡 <a href="/parlour" style="color: #d4af37;">Visit The Parlour</a> to see your new posts!
+          </div>
+        `;
+        
+        btn.textContent = '✅ Seeding Complete!';
+        
+      } catch (error) {
+        console.error('Error:', error);
+        output.innerHTML += `<div class="error">❌ Error seeding forum data: ${error.message}</div>`;
+        btn.disabled = false;
+        btn.textContent = '🔄 Try Again';
+      }
+    };
+  </script>
+</body>
+</html>

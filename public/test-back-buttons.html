@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Back Buttons - Visual Test</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #a0a0a0 0%, #e0e0e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 3rem;
+      font-size: 0.9rem;
+    }
+
+    .section {
+      background: rgba(30, 30, 30, 0.6);
+      border: 1px solid rgba(80, 80, 80, 0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #d0d0d0;
+      font-weight: 600;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .button-demo {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .button-label {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* Button Styles */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(100, 100, 100, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 0.5rem;
+      filter: blur(4px);
+    }
+
+    .back-button:hover::before {
+      opacity: 1;
+    }
+
+    .back-button .arrow {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .back-button:hover .arrow {
+      transform: translateX(-3px);
+    }
+
+    /* Ghost Variant */
+    .back-button.ghost {
+      color: #a0a0a0;
+    }
+
+    .back-button.ghost:hover {
+      color: #f0f0f0;
+      gap: 0.75rem;
+      transform: scale(1.05) translateX(-4px);
+    }
+
+    /* Default Variant */
+    .back-button.default {
+      color: #888;
+    }
+
+    .back-button.default:hover {
+      color: #c0c0c0;
+      transform: scale(1.05) translateX(-4px);
+    }
+
+    /* Prominent Variant */
+    .back-button.prominent {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(0, 0, 0, 0.8));
+      border: 1px solid rgba(80, 80, 80, 0.5);
+      color: #c0c0c0;
+      font-family: serif;
+      letter-spacing: 0.05em;
+    }
+
+    .back-button.prominent:hover {
+      border-color: rgba(100, 100, 100, 0.5);
+      color: #f0f0f0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      transform: scale(1.02);
+    }
+
+    /* Fixed Position Demo */
+    .fixed-demo {
+      position: relative;
+      height: 300px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .fixed-button {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .fixed-demo-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #666;
+    }
+
+    /* Animation Demo */
+    .animation-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .animation-card {
+      background: rgba(20, 20, 20, 0.6);
+      border: 1px solid rgba(60, 60, 60, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .animation-card h3 {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      font-family: 'Courier New', monospace;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      padding: 0.5rem 0;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: #4a9;
+      margin-right: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Enhanced Back Button System</h1>
+    <p class="subtitle">Consistent positioning, smooth animations, and visual flair</p>
+
+    <!-- Variants Section -->
+    <div class="section">
+      <h2 class="section-title">Button Variants</h2>
+      
+      <div class="button-row">
+        <div class="button-demo">
+          <div class="button-label">Ghost (Default)</div>
+          <button class="back-button ghost">
+            <span class="arrow">←</span>
+            <span>Back</span>
+          </button>
+        </div>
+
+        <div class="button-demo">
+          <div class="button-label">Default</div>
+          <button class="back-button default">
+            <span class="arrow">←</span>
+            <span>Back</span>
+          </button>
+        </div>
+
+        <div class="button-demo">
+          <div class="button-label">Prominent</div>
+          <button class="back-button prominent">
+            <span class="arrow">←</span>
+            <span>Back</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <div class="button-demo">
+          <div class="button-label">Custom Label</div>
+          <button class="back-button ghost">
+            <span class="arrow">←</span>
+            <span>Back to Library</span>
+          </button>
+        </div>
+
+        <div class="button-demo">
+          <div class="button-label">Disabled State</div>
+          <button class="back-button ghost" disabled style="opacity: 0.5; cursor: not-allowed;">
+            <span class="arrow">←</span>
+            <span>Back</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fixed Position Demo -->
+    <div class="section">
+      <h2 class="section-title">Fixed Position</h2>
+      <div class="fixed-demo">
+        <div class="fixed-button">
+          <button class="back-button ghost">
+            <span class="arrow">←</span>
+            <span>Back</span>
+          </button>
+        </div>
+        <div class="fixed-demo-content">
+          <p>Back button positioned at top-left</p>
+          <p style="font-size: 0.8rem; margin-top: 0.5rem;">Consistent across all pages</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animation Features -->
+    <div class="section">
+      <h2 class="section-title">Animation Features</h2>
+      <div class="animation-demo">
+        <div class="animation-card">
+          <h3>Hover Scale</h3>
+          <code>scale: 1.05</code>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+            Subtle enlargement on hover
+          </p>
+        </div>
+
+        <div class="animation-card">
+          <h3>Slide Left</h3>
+          <code>x: -4px</code>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+            Moves left on hover
+          </p>
+        </div>
+
+        <div class="animation-card">
+          <h3>Arrow Animation</h3>
+          <code>x: -3px</code>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+            Independent arrow movement
+          </p>
+        </div>
+
+        <div class="animation-card">
+          <h3>Spring Physics</h3>
+          <code>stiffness: 400</code>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+            Natural, bouncy feel
+          </p>
+        </div>
+
+        <div class="animation-card">
+          <h3>Glow Effect</h3>
+          <code>gradient overlay</code>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+            Subtle gradient on hover
+          </p>
+        </div>
+
+        <div class="animation-card">
+          <h3>Tap Feedback</h3>
+          <code>scale: 0.95</code>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+            Press down effect
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features List -->
+    <div class="section">
+      <h2 class="section-title">Key Features</h2>
+      <ul class="feature-list">
+        <li>Consistent positioning across all pages</li>
+        <li>Smooth spring-based animations</li>
+        <li>Multiple variants for different contexts</li>
+        <li>Accessible keyboard navigation</li>
+        <li>Touch-friendly tap targets (44x44px minimum)</li>
+        <li>GPU-accelerated animations</li>
+        <li>Customizable labels and styling</li>
+        <li>Fixed position wrapper for hero sections</li>
+      </ul>
+    </div>
+
+    <!-- Usage Examples -->
+    <div class="section">
+      <h2 class="section-title">Usage Examples</h2>
+      <div style="background: rgba(0, 0, 0, 0.4); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #a0a0a0; overflow-x: auto;">
+        <div style="margin-bottom: 1rem;">
+          <div style="color: #666; margin-bottom: 0.5rem;">// Standard back button</div>
+          <div>&lt;BackButton onClick={goBack} variant="ghost" /&gt;</div>
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <div style="color: #666; margin-bottom: 0.5rem;">// Fixed position</div>
+          <div>&lt;FixedBackButton onClick={goBack} position="top-left" /&gt;</div>
+        </div>
+        <div>
+          <div style="color: #666; margin-bottom: 0.5rem;">// Custom label</div>
+          <div>&lt;BackButton onClick={goBack} label="Back to Library" /&gt;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add click handlers for demo
+    document.querySelectorAll('.back-button').forEach(button => {
+      button.addEventListener('click', function() {
+        if (!this.disabled) {
+          console.log('Back button clicked!');
+          // Visual feedback
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 100);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

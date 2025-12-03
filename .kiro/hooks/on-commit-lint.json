@@ -1,0 +1,13 @@
+{
+  "name": "Lint Before Commit",
+  "description": "Run linter and type checker before allowing commits",
+  "trigger": {
+    "type": "preCommit"
+  },
+  "action": {
+    "type": "command",
+    "command": "pnpm lint && pnpm type-check"
+  },
+  "enabled": true,
+  "failOnError": true
+}

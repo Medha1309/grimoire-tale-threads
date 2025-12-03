@@ -1,0 +1,19 @@
+{
+  "name": "Run Tests on Save",
+  "description": "Automatically run relevant tests when a file is saved",
+  "trigger": {
+    "type": "onFileSave",
+    "filePattern": "src/**/*.{ts,tsx}"
+  },
+  "action": {
+    "type": "command",
+    "command": "pnpm test:related ${filePath}"
+  },
+  "enabled": true,
+  "conditions": {
+    "excludePatterns": [
+      "**/*.test.{ts,tsx}",
+      "**/__tests__/**"
+    ]
+  }
+}

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Favicon Demo - Grimr</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #8b0000;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .demo-section {
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .demo-section h2 {
+      color: #c0c0c0;
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .demo-section p {
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    button {
+      background: #8b0000;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 12px;
+      margin-bottom: 12px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #a00000;
+    }
+    .status {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #2a2a2a;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #8b0000;
+      margin-left: 12px;
+    }
+    .instruction {
+      background: #2a2a2a;
+      padding: 16px;
+      border-left: 4px solid #8b0000;
+      margin-top: 16px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>👁️ Dynamic Favicon Demo</h1>
+
+  <div class="demo-section">
+    <h2>🎭 State Controls</h2>
+    <p>Click buttons to manually trigger different favicon states:</p>
+    <button onclick="setFaviconState('idle')">Idle</button>
+    <button onclick="setFaviconState('active')">Active</button>
+    <button onclick="setFaviconState('watching')">Watching</button>
+    <button onclick="setFaviconState('typing')">Typing</button>
+    <button onclick="showNotification()">Notification</button>
+    <span class="status" id="currentState">idle</span>
+  </div>
+
+  <div class="demo-section">
+    <h2>🔄 Automatic Behaviors</h2>
+    <p>The favicon automatically responds to:</p>
+    <ul>
+      <li><strong>Mouse movement:</strong> Switches to "active" state</li>
+      <li><strong>Typing:</strong> Switches to "typing" state with animated pupil</li>
+      <li><strong>Tab hidden:</strong> Switches to "watching" state (try switching tabs!)</li>
+      <li><strong>Inactivity:</strong> Returns to "idle" after 3 seconds</li>
+      <li><strong>Random blinks:</strong> Eye blinks every 3-10 seconds</li>
+    </ul>
+    <div class="instruction">
+      💡 Try typing in this text area to see the typing state:
+      <br><br>
+      <textarea style="width: 100%; height: 80px; background: #0a0a0a; color: #e0e0e0; border: 1px solid #333; padding: 8px; font-family: monospace;"></textarea>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>👁️ The Eye States</h2>
+    <p>Each state has a unique eye design:</p>
+    <ul>
+      <li><strong>Idle:</strong> Normal open eye, calm and observant</li>
+      <li><strong>Active:</strong> Wider eye with larger pupil, alert</li>
+      <li><strong>Watching:</strong> Narrowed eye looking to the side, suspicious</li>
+      <li><strong>Typing:</strong> Pupil moves rapidly side to side</li>
+      <li><strong>Notification:</strong> Red dot appears in corner</li>
+      <li><strong>Blink:</strong> Quick closed eye animation</li>
+    </ul>
+  </div>
+
+  <div class="demo-section">
+    <h2>🎯 Integration Examples</h2>
+    <p>In your React components, use these hooks:</p>
+    <pre style="background: #0a0a0a; padding: 16px; border-radius: 4px; overflow-x: auto; color: #8b0000;">
+// Show notification
+import { useFaviconNotification } from '@/hooks/useFaviconAwareness';
+useFaviconNotification(hasNewMessage);
+
+// Set context
+import { useFaviconContext } from '@/hooks/useFaviconAwareness';
+useFaviconContext('writing'); // or 'reading', 'social', 'default'
+    </pre>
+  </div>
+
+  <script>
+    // Inline version of the dynamic favicon for demo
+    class DynamicFavicon {
+      constructor() {
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = 32;
+        this.canvas.height = 32;
+        this.ctx = this.canvas.getContext('2d');
+        this.currentState = 'idle';
+        this.init();
+      }
+
+      init() {
+        this.setState('idle');
+        this.setupEventListeners();
+        this.startBlinkCycle();
+      }
+
+      setupEventListeners() {
+        document.addEventListener('mousemove', () => this.setState('active'));
+        document.addEventListener('keydown', () => this.setState('typing'));
+        
+        let idleTimer;
+        const resetIdle = () => {
+          clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => this.setState('idle'), 3000);
+        };
+        
+        document.addEventListener('mousemove', resetIdle);
+        document.addEventListener('keydown', resetIdle);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.setState('watching');
+          } else {
+            this.setState('active');
+          }
+        });
+      }
+
+      startBlinkCycle() {
+        const scheduleNextBlink = () => {
+          const delay = 3000 + Math.random() * 7000;
+          setTimeout(() => {
+            this.blink();
+            scheduleNextBlink();
+          }, delay);
+        };
+        scheduleNextBlink();
+      }
+
+      blink() {
+        const originalState = this.currentState;
+        this.drawEyeClosed();
+        this.updateFavicon();
+        
+        setTimeout(() => {
+          this.setState(originalState);
+        }, 150);
+      }
+
+      setState(state) {
+        this.currentState = state;
+        document.getElementById('currentState').textContent = state;
+        this.draw();
+        this.updateFavicon();
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, 32, 32);
+
+        switch (this.currentState) {
+          case 'idle':
+            this.drawEyeOpen();
+            break;
+          case 'active':
+            this.drawEyeAlert();
+            break;
+          case 'notification':
+            this.drawEyeWithDot();
+            break;
+          case 'watching':
+            this.drawEyeWatching();
+            break;
+          case 'typing':
+            this.drawEyeTyping();
+            break;
+        }
+      }
+
+      drawEyeOpen() {
+        const ctx = this.ctx;
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 12, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 10, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#8b0000';
+        ctx.beginPath();
+        ctx.arc(16, 16, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.arc(16, 16, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      drawEyeClosed() {
+        const ctx = this.ctx;
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(4, 16);
+        ctx.quadraticCurveTo(16, 18, 28, 16);
+        ctx.stroke();
+      }
+
+      drawEyeAlert() {
+        const ctx = this.ctx;
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 13, 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 11, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#8b0000';
+        ctx.beginPath();
+        ctx.arc(16, 16, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.arc(16, 16, 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      drawEyeWithDot() {
+        this.drawEyeOpen();
+        const ctx = this.ctx;
+        ctx.fillStyle = '#ff0000';
+        ctx.beginPath();
+        ctx.arc(26, 8, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      drawEyeWatching() {
+        const ctx = this.ctx;
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 12, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 10, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#8b0000';
+        ctx.beginPath();
+        ctx.arc(18, 16, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.arc(18, 16, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      drawEyeTyping() {
+        const ctx = this.ctx;
+        const offset = Math.sin(Date.now() / 100) * 2;
+        
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 12, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.ellipse(16, 16, 10, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#8b0000';
+        ctx.beginPath();
+        ctx.arc(16 + offset, 16, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.arc(16 + offset, 16, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      updateFavicon() {
+        const dataUrl = this.canvas.toDataURL('image/png');
+        let link = document.querySelector("link[rel*='icon']");
+        
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'icon';
+          document.head.appendChild(link);
+        }
+        
+        link.href = dataUrl;
+      }
+
+      showNotification() {
+        this.setState('notification');
+        setTimeout(() => {
+          this.setState('idle');
+        }, 3000);
+      }
+    }
+
+    // Initialize
+    const favicon = new DynamicFavicon();
+
+    // Global functions for demo buttons
+    function setFaviconState(state) {
+      favicon.setState(state);
+    }
+
+    function showNotification() {
+      favicon.showNotification();
+    }
+  </script>
+</body>
+</html>

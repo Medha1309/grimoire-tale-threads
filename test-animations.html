@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Animation Test</title>
+  <style>
+    body { background: black; color: white; font-family: sans-serif; padding: 20px; }
+    .test-box {
+      width: 100px;
+      height: 100px;
+      background: red;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Animation Test</h1>
+  <p>If you see a red box animating below, CSS animations work:</p>
+  <div class="test-box" id="cssTest"></div>
+  
+  <p>Check console for Framer Motion test</p>
+  
+  <script>
+    // Test CSS animations
+    const cssBox = document.getElementById('cssTest');
+    cssBox.style.animation = 'fadeIn 2s ease-in-out infinite alternate';
+    
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0.2; transform: translateX(0); }
+        to { opacity: 1; transform: translateX(100px); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Check for prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    console.log('Prefers reduced motion:', prefersReducedMotion);
+    
+    if (prefersReducedMotion) {
+      alert('WARNING: Your browser/OS has "prefers-reduced-motion" enabled. This will disable most animations!');
+    }
+  </script>
+</body>
+</html>

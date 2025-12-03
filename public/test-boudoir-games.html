@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boudoir Games - Test Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #000;
+      color: #ec4899;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 20px #ec4899;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 20px #ec4899; }
+      50% { text-shadow: 0 0 40px #ec4899, 0 0 60px #ec4899; }
+    }
+
+    .description {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #f472b6;
+      font-size: 1.1rem;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .game-card {
+      background: linear-gradient(135deg, #1a0a1a, #2a0a2a);
+      border: 2px solid #ec4899;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 40px rgba(236, 72, 153, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 60px rgba(236, 72, 153, 0.5);
+    }
+
+    .game-card h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #f472b6;
+    }
+
+    .game-card .emoji {
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .game-card p {
+      color: #ec4899;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .game-card .features {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .game-card .features li {
+      padding: 0.5rem 0;
+      color: #f472b6;
+      border-bottom: 1px solid #ec489920;
+    }
+
+    .game-card .features li:before {
+      content: "▸ ";
+      color: #ec4899;
+    }
+
+    .terminal-preview {
+      background: #000;
+      border: 2px solid #ec4899;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 0 40px rgba(236, 72, 153, 0.3);
+      margin-bottom: 3rem;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ec489950;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ef4444; }
+    .terminal-dot.yellow { background: #eab308; }
+    .terminal-dot.green { background: #22c55e; }
+
+    .terminal-content {
+      color: #f472b6;
+      line-height: 1.8;
+    }
+
+    .terminal-content .command {
+      color: #ec4899;
+    }
+
+    .terminal-content .output {
+      color: #f472b680;
+    }
+
+    .commands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .command-card {
+      background: #1a0a1a;
+      border: 1px solid #ec489950;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .command-card .cmd {
+      color: #ec4899;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .command-card .desc {
+      color: #f472b680;
+      font-size: 0.9rem;
+    }
+
+    .stats-preview {
+      background: linear-gradient(135deg, #1a0a1a, #2a0a2a);
+      border: 2px solid #a855f7;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+    }
+
+    .stats-preview h3 {
+      color: #a855f7;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: #00000050;
+      border-radius: 8px;
+      border: 1px solid #a855f750;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      color: #a855f7;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      color: #c084fc;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: #f472b680;
+    }
+
+    .integration-note {
+      background: #2a0a2a;
+      border-left: 4px solid #ec4899;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 4px;
+    }
+
+    .integration-note h3 {
+      color: #f472b6;
+      margin-bottom: 1rem;
+    }
+
+    .integration-note code {
+      background: #000;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: #ec4899;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎮 BOUDOIR GAMES</h1>
+    
+    <p class="description">
+      Two haunted retro games accessible via terminal commands.<br>
+      All sessions tracked in the Archive Room.
+    </p>
+
+    <!-- Games Grid -->
+    <div class="games-grid">
+      <!-- Ouroboros -->
+      <div class="game-card">
+        <div class="emoji">🐍</div>
+        <h2>OUROBOROS</h2>
+        <p>The eternal serpent awaits. Guide the spectral snake through the void, consuming data fragments to grow. But beware—the serpent that consumes itself faces eternal corruption.</p>
+        <ul class="features">
+          <li>Ethereal pink serpent with glowing trail</li>
+          <li>Progressive speed increase</li>
+          <li>Cryptic error messages on failure</li>
+          <li>Score and duration tracking</li>
+        </ul>
+        <p style="margin-top: 1rem; font-weight: bold;">
+          Commands: EXECUTE SNAKE | LAUNCH OUROBOROS
+        </p>
+      </div>
+
+      <!-- Haunted Pac-Man -->
+      <div class="game-card">
+        <div class="emoji">👻</div>
+        <h2>HAUNTED MAZE</h2>
+        <p>Navigate the spectral labyrinth, collecting lost souls while vengeful spirits hunt you. Escape the maze or be trapped forever in the realm of the dead.</p>
+        <ul class="features">
+          <li>Three AI-controlled ghost spirits</li>
+          <li>Collect all souls to win</li>
+          <li>Purple haunted aesthetic</li>
+          <li>Win/loss cryptic messages</li>
+        </ul>
+        <p style="margin-top: 1rem; font-weight: bold;">
+          Commands: EXECUTE PACMAN | LAUNCH SPIRITS
+        </p>
+      </div>
+    </div>
+
+    <!-- Terminal Preview -->
+    <div class="terminal-preview">
+      <div class="terminal-header">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span style="margin-left: 1rem; color: #ec4899;">BOUDOIR_TERMINAL.EXE</span>
+      </div>
+      <div class="terminal-content">
+        <div>BOUDOIR TERMINAL v1.3.7</div>
+        <div>Type "help" for available commands</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div class="command">> help</div>
+        <div class="output">Available commands:</div>
+        <div class="output">  EXECUTE SNAKE      - Launch Ouroboros (Snake game)</div>
+        <div class="output">  LAUNCH OUROBOROS   - Launch Ouroboros (Snake game)</div>
+        <div class="output">  EXECUTE PACMAN     - Launch Haunted Pac-Man</div>
+        <div class="output">  LAUNCH SPIRITS     - Launch Haunted Pac-Man</div>
+        <div class="output">  STATS              - View game statistics</div>
+        <div class="output">  HISTORY            - View recent game sessions</div>
+        <div class="output">  CLEAR              - Clear terminal</div>
+        <div class="output">  EXIT               - Close terminal</div>
+        <div class="command" style="margin-top: 1rem;">> EXECUTE SNAKE</div>
+        <div class="output">Initializing Ouroboros protocol...</div>
+        <div class="output">WARNING: The eternal serpent awakens...</div>
+      </div>
+    </div>
+
+    <!-- Commands Reference -->
+    <h2 style="text-align: center; margin-bottom: 1rem; color: #f472b6;">Terminal Commands</h2>
+    <div class="commands-grid">
+      <div class="command-card">
+        <div class="cmd">help</div>
+        <div class="desc">Show all available commands</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">EXECUTE SNAKE</div>
+        <div class="desc">Launch Ouroboros game</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">LAUNCH OUROBOROS</div>
+        <div class="desc">Launch Ouroboros game</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">EXECUTE PACMAN</div>
+        <div class="desc">Launch Haunted Pac-Man</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">LAUNCH SPIRITS</div>
+        <div class="desc">Launch Haunted Pac-Man</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">STATS</div>
+        <div class="desc">View game statistics</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">HISTORY</div>
+        <div class="desc">View recent sessions</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">CLEAR</div>
+        <div class="desc">Clear terminal screen</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">EXIT</div>
+        <div class="desc">Close terminal</div>
+      </div>
+    </div>
+
+    <!-- Stats Preview -->
+    <div class="stats-preview" style="margin-top: 3rem;">
+      <h3>📊 Statistics Tracking</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">42</div>
+          <div class="stat-label">Total Games</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">28</div>
+          <div class="stat-label">Wins</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">14</div>
+          <div class="stat-label">Losses</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">67%</div>
+          <div class="stat-label">Win Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">850</div>
+          <div class="stat-label">High Score</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">420</div>
+          <div class="stat-label">Avg Score</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integration Note -->
+    <div class="integration-note">
+      <h3>🔧 Integration</h3>
+      <p>Add the terminal to your Boudoir page:</p>
+      <pre style="margin-top: 1rem; color: #ec4899; overflow-x: auto;">
+import { BoudoirTerminal } from '../components/diary/BoudoirTerminal';
+
+// In your component:
+const [showTerminal, setShowTerminal] = useState(false);
+
+// Render:
+{showTerminal && (
+  &lt;BoudoirTerminal onClose={() => setShowTerminal(false)} /&gt;
+)}
+      </pre>
+      <p style="margin-top: 1rem;">
+        See <code>docs/BOUDOIR_GAMES_INTEGRATION_GUIDE.md</code> for complete instructions.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>🎮 Boudoir Games System v1.0.0</p>
+      <p style="margin-top: 0.5rem;">Complete with Archive Integration & Statistics Tracking</p>
+      <p style="margin-top: 1rem; font-size: 0.9rem;">
+        All game sessions automatically logged to Archive Room
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Performance Monitor",
+  "description": "Check bundle size and performance metrics after build",
+  "trigger": {
+    "type": "postBuild"
+  },
+  "action": {
+    "type": "command",
+    "command": "pnpm analyze:bundle && pnpm lighthouse:ci"
+  },
+  "enabled": true,
+  "thresholds": {
+    "bundleSize": "500KB",
+    "lighthousePerformance": 90,
+    "lighthouseAccessibility": 95
+  }
+}

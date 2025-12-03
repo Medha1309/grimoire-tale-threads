@@ -1,0 +1,324 @@
+/* Google Fonts - Headings */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
+
+/* Google Fonts - Body */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap');
+
+/* Google Fonts - Decorative */
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body { 
+  @apply bg-black text-zinc-100;
+  cursor: default !important;
+}
+
+/* Force default cursor everywhere */
+body *,
+body.auth-page *,
+body.library-page *,
+body.forum-page *,
+body.profile-page *,
+body.tale-threads-page *,
+body.dollhouse-page * {
+  cursor: default !important;
+}
+
+/* Force pointer cursor on all interactive elements */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+[role="button"],
+.cursor-pointer,
+body button,
+body a,
+body input[type="button"],
+body input[type="submit"],
+body input[type="checkbox"],
+body input[type="radio"],
+body select,
+body [role="button"],
+body .cursor-pointer {
+  cursor: pointer !important;
+}
+
+/* Force text cursor on text inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+textarea,
+body input[type="text"],
+body input[type="email"],
+body input[type="password"],
+body input[type="search"],
+body input[type="number"],
+body input[type="tel"],
+body input[type="url"],
+body textarea {
+  cursor: text !important;
+}
+
+/* 
+Parallax background effect */
+.parallax-bg {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+/* Cursor shadow effect */
+.cursor-shadow {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,155,62,0.3) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease-out;
+}
+
+/* Custom scrollbar for genre selector */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(39, 39, 42, 0.3);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(113, 113, 122, 0.5);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 113, 122, 0.7);
+}
+
+/* Terminal scanline animation */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-scan {
+  animation: scan 8s linear infinite;
+}
+
+/* Terminal scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(63, 63, 70, 0.3);
+  border-radius: 2px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 63, 70, 0.5);
+}
+
+/* ============================================
+   TALE THREADS PAGE
+   ============================================ */
+
+/* Tale Threads page - VISIBLE CURSORS */
+body.tale-threads-page {
+  cursor: default !important;
+}
+
+body.tale-threads-page * {
+  cursor: inherit !important;
+}
+
+body.tale-threads-page button,
+body.tale-threads-page a,
+body.tale-threads-page [role="button"],
+body.tale-threads-page .cursor-pointer {
+  cursor: pointer !important;
+}
+
+body.tale-threads-page input,
+body.tale-threads-page textarea,
+body.tale-threads-page select {
+  cursor: text !important;
+}
+
+body.chains-page button,
+body.chains-page a,
+body.chains-page [role="button"] {
+  cursor: pointer !important;
+}
+
+body.chains-page select {
+  cursor: pointer !important;
+}
+
+/* Subtle CRT scanlines */
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.6) 1px,
+    transparent 1px
+  );
+  background-size: 100% 2px;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Thin bar in the header */
+.scanline-bar {
+  position: relative;
+  overflow: hidden;
+}
+.scanline-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(15, 23, 42, 0.9),
+    transparent
+  );
+  animation: bar-scan 2.4s linear infinite;
+  mix-blend-mode: soft-light;
+}
+
+@keyframes bar-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Scrollbars – narrow, slightly haunted */
+.chains-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.chains-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chains-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgba(148, 163, 184, 0.5),
+    rgba(15, 23, 42, 0.9)
+  );
+  border-radius: 999px;
+}
+
+/* Glitch hint on log items */
+.glitch-text {
+  position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+}
+.active-glitch .glitch-text::before {
+  opacity: 0.16;
+  transform: translateX(-1px);
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
+}
+.active-glitch .glitch-text::after {
+  opacity: 0.16;
+  transform: translateX(1px);
+  filter: drop-shadow(0 0 6px rgba(244, 114, 182, 0.7));
+}
+
+/* Editor glow + noise */
+.editor-chroma {
+  background:
+    radial-gradient(circle at 0 0, rgba(190, 242, 100, 0.09), transparent 60%),
+    radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.06), transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(236, 72, 153, 0.08), transparent 60%);
+  mix-blend-mode: screen;
+}
+
+.editor-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* Slight neon ring on the Σ icon */
+.neon-ring {
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.4),
+    0 0 12px rgba(190, 242, 100, 0.7);
+}
+
+/* Editor shell borders feel a bit more physical */
+.editor-shell {
+  backdrop-filter: blur(30px);
+}
+
+/* Custom Scrollbar for Gothic Theme */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(251, 113, 133, 0.3);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 113, 133, 0.5);
+}
+
+/* Firefox scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 113, 133, 0.3) rgba(15, 23, 42, 0.5);
+}

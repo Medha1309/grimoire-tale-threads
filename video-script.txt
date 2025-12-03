@@ -1,0 +1,262 @@
+GRIMOIRE: Tale Threads - 3-Minute Demo Video Script
+
+=== TOTAL TIME: 3 MINUTES ===
+
+---
+
+[0:00-0:15] INTRO (15 seconds)
+VISUAL: Logo animation → Landing page
+AUDIO: "Welcome to GRIMOIRE: Tale Threads, a gothic storytelling platform that combines early-2000s web nostalgia with modern collaborative features. Built entirely with Kiro AI-assisted development."
+
+SCREEN: Show landing page with gothic aesthetic
+TEXT OVERLAY: "GRIMOIRE: Tale Threads"
+TEXT OVERLAY: "Built with Kiro AI"
+
+---
+
+[0:15-0:45] DOLLHOUSE ENVIRONMENT (30 seconds)
+VISUAL: Navigate through Dollhouse rooms
+AUDIO: "The heart of GRIMOIRE is the Dollhouse—a virtual environment with themed rooms. Each room represents a different creative space: Diary, Scrapbook, Art Studio, and Archive."
+
+SCREEN ACTIONS:
+- Show Dollhouse home view
+- Hover over rooms to show effects
+- Click into Diary room (smooth transition)
+- Show atmospheric effects (fog, vintage filter)
+- Demonstrate idle trigger (cursor disappears after 10 seconds)
+- Show tab switch behavior (switch tabs, return, see "welcome back" message)
+
+TEXT OVERLAY: "Responsive to user behavior"
+TEXT OVERLAY: "Idle detection • Tab switching • Focus mode"
+
+---
+
+[0:45-1:15] TALE THREADS (30 seconds)
+VISUAL: Collaborative story creation workflow
+AUDIO: "Tale Threads enables collaborative storytelling with a GitHub-inspired workflow. Create projects, submit proposals, vote on changes, and merge approved content. The integrity index tracks community engagement."
+
+SCREEN ACTIONS:
+- Navigate to Tale Threads
+- Click "Create Project" (fast-forward form filling)
+- Show project detail page
+- Click "New Proposal"
+- Type proposal content (sped up)
+- Show voting interface
+- Click "Approve"
+- Show integrity index update
+- Click "Merge"
+- Show diff engine highlighting changes
+
+TEXT OVERLAY: "Collaborative Storytelling"
+TEXT OVERLAY: "Proposals • Voting • Integrity Index • Diff Engine"
+
+---
+
+[1:15-1:45] CHAINS (30 seconds)
+VISUAL: Real-time collaboration
+AUDIO: "Chains brings real-time collaboration with live cursors, shared editing, and participant presence. Perfect for reflection sessions and co-writing."
+
+SCREEN ACTIONS:
+- Navigate to Chains
+- Click "Create Session"
+- Enter session room
+- Show live cursor (move mouse around)
+- Type in shared editor
+- Show participant bar
+- Demonstrate shared scrapbook (if time)
+
+TEXT OVERLAY: "Real-Time Collaboration"
+TEXT OVERLAY: "Live Cursors • Shared Editor • Presence Indicators"
+
+SPLIT SCREEN (if possible): Show two users collaborating simultaneously
+
+---
+
+[1:45-2:15] LIBRARY & FORUM (30 seconds)
+VISUAL: Reading and community features
+AUDIO: "The Library offers atmospheric reading experiences with genre-based effects. Save quotes, bookmark stories, and track your reading history. The Gilded Parlour forum brings gothic aesthetics to community discussions."
+
+SCREEN ACTIONS:
+- Navigate to Library
+- Show torch lighting effects
+- Click on a story
+- Show reader with atmospheric background
+- Select text → Save quote popup
+- Click bookmark icon
+- Navigate to Forum
+- Show gothic library aesthetic
+- Scroll through threads
+- Click candle to like a post (animation)
+
+TEXT OVERLAY: "Immersive Reading"
+TEXT OVERLAY: "Quote Saving • Bookmarks • Reading History"
+
+---
+
+[2:15-2:45] KIRO USAGE (30 seconds)
+VISUAL: Show .kiro directory and development process
+AUDIO: "GRIMOIRE was built using Kiro's full feature set. Close-ended questions for vibe coding, agent hooks for automation, specs for structured development, steering docs for context preservation, and MCP for systematic refactoring. The result? 200+ components, 85% test coverage, and 60% faster development."
+
+SCREEN ACTIONS:
+- Show .kiro directory in file explorer
+- Open .kiro/README.md (scroll through)
+- Show .kiro/specs/ folder structure
+- Open a spec file (requirements.md)
+- Show .kiro/hooks/ folder
+- Open a hook configuration
+- Show .kiro/steering.md (scroll through)
+- Show GitHub Actions CI passing
+- Show test coverage report
+
+TEXT OVERLAY: "Built with Kiro AI"
+TEXT OVERLAY: "Vibe Coding • Agent Hooks • Specs • Steering • MCP"
+TEXT OVERLAY: "200+ Components • 85% Coverage • 60% Faster"
+
+---
+
+[2:45-3:00] OUTRO (15 seconds)
+VISUAL: Montage of features → Logo → Links
+AUDIO: "GRIMOIRE: Tale Threads—where nostalgia meets innovation, powered by Kiro AI. Try it now at the link below."
+
+SCREEN ACTIONS:
+- Quick montage: Dollhouse → Tale Threads → Chains → Library → Forum
+- Fade to logo
+- Show links
+
+TEXT OVERLAY: "Try it now: {{DEMO_URL}}"
+TEXT OVERLAY: "GitHub: {{REPO_URL}}"
+TEXT OVERLAY: "Built for Kiro Hackathon 2024"
+
+FADE TO BLACK
+
+---
+
+=== SHOT LIST ===
+
+1. Landing page (static)
+2. Dollhouse home view (pan across rooms)
+3. Diary room transition (smooth animation)
+4. Idle trigger demonstration (time-lapse)
+5. Tale Threads project creation (fast-forward)
+6. Voting interface (close-up)
+7. Diff engine (highlight changes)
+8. Chains session room (live cursor movement)
+9. Shared editor typing (real-time)
+10. Library torch effects (atmospheric)
+11. Reader with genre effects (scroll)
+12. Forum candle like animation (close-up)
+13. .kiro directory (file explorer)
+14. Spec file (scroll through)
+15. CI passing (GitHub Actions)
+16. Test coverage report (dashboard)
+17. Feature montage (quick cuts)
+18. Logo and links (static)
+
+---
+
+=== TECHNICAL NOTES ===
+
+RECORDING SETUP:
+- Screen resolution: 1920x1080
+- Frame rate: 60fps
+- Recording software: OBS Studio or Loom
+- Cursor highlighting: Enabled
+- Keyboard shortcuts visible: Optional
+
+EDITING:
+- Speed up form filling (2x speed)
+- Add smooth transitions between sections
+- Background music: Subtle, gothic-themed (royalty-free)
+- Text overlays: Gothic font (Cinzel or similar)
+- Color grading: Slightly desaturated for gothic feel
+
+AUDIO:
+- Voiceover: Clear, professional tone
+- Background music: Low volume, non-intrusive
+- Sound effects: Subtle (page turns, clicks)
+
+EXPORT:
+- Format: MP4 (H.264)
+- Resolution: 1920x1080
+- Bitrate: 10 Mbps
+- Audio: AAC, 192 kbps
+- Max file size: 100 MB (for Devpost)
+
+---
+
+=== ALTERNATIVE: SILENT VERSION ===
+
+If voiceover is not possible, use text overlays and captions:
+
+[0:00-0:15] TEXT: "GRIMOIRE: Tale Threads"
+[0:15-0:45] TEXT: "Explore the Dollhouse environment"
+[0:45-1:15] TEXT: "Collaborate on stories with Tale Threads"
+[1:15-1:45] TEXT: "Real-time editing with Chains"
+[1:45-2:15] TEXT: "Read and discuss in Library & Forum"
+[2:15-2:45] TEXT: "Built with Kiro AI"
+[2:45-3:00] TEXT: "Try it now: {{DEMO_URL}}"
+
+---
+
+=== BACKUP PLAN: 1-MINUTE VERSION ===
+
+If 3 minutes is too long:
+
+[0:00-0:10] Intro + Dollhouse
+[0:10-0:25] Tale Threads (create, vote, merge)
+[0:25-0:40] Chains (real-time collaboration)
+[0:40-0:50] Kiro usage (.kiro directory)
+[0:50-1:00] Outro + links
+
+---
+
+=== UPLOAD INSTRUCTIONS ===
+
+1. Upload to YouTube:
+   - Title: "GRIMOIRE: Tale Threads - Kiro Hackathon 2024"
+   - Description: Include demo URL, repo URL, and feature list
+   - Tags: kiro, hackathon, storytelling, collaborative, gothic
+   - Visibility: Unlisted (for judges) or Public
+
+2. Alternative platforms:
+   - Vimeo (if YouTube not available)
+   - Loom (for quick recording)
+   - Direct upload to Devpost (if supported)
+
+3. Get shareable link:
+   - Copy video URL
+   - Paste into Devpost submission form
+   - Test link to ensure it works
+
+---
+
+=== CHECKLIST ===
+
+PRE-RECORDING:
+- [ ] Demo environment ready (logged in, test data seeded)
+- [ ] Browser clean (no extra tabs, bookmarks hidden)
+- [ ] Screen resolution set to 1920x1080
+- [ ] Recording software tested
+- [ ] Microphone tested (if voiceover)
+- [ ] Script printed or on second monitor
+
+RECORDING:
+- [ ] Record in one take (or plan edit points)
+- [ ] Speak clearly and at moderate pace
+- [ ] Demonstrate each feature smoothly
+- [ ] Show .kiro directory
+- [ ] End with clear call-to-action
+
+POST-RECORDING:
+- [ ] Edit for timing (3 minutes max)
+- [ ] Add text overlays
+- [ ] Add background music
+- [ ] Color grade for gothic aesthetic
+- [ ] Export in correct format
+- [ ] Upload to platform
+- [ ] Test video link
+- [ ] Add to Devpost submission
+
+---
+
+Last Updated: December 2, 2024

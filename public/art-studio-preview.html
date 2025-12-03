@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Studio - Visual Preview</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0a0a0a;
+      color: #ffb6d9;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #ffb6d9;
+      border-bottom: 2px solid #b02e2e;
+      padding-bottom: 10px;
+    }
+    .mockup {
+      background: #0a0a0a;
+      border: 2px solid rgba(255, 182, 217, 0.2);
+      border-radius: 8px;
+      padding: 0;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    .title-bar {
+      background: linear-gradient(to right, #0f172a, #1e293b, #0f172a);
+      border-bottom: 2px solid rgba(255, 182, 217, 0.3);
+      padding: 8px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .app-icon {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(to bottom right, #f43f5e, #be123c);
+      border: 1px solid rgba(251, 113, 133, 0.5);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-center;
+      font-size: 12px;
+    }
+    .app-title {
+      color: #fecdd3;
+      font-size: 16px;
+    }
+    .filename {
+      color: rgba(251, 113, 133, 0.4);
+      font-size: 12px;
+    }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+    .window-btn {
+      width: 24px;
+      height: 24px;
+      background: rgba(51, 65, 85, 0.5);
+      border: 1px solid #475569;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-center;
+      color: rgba(254, 205, 211, 0.6);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .menu-bar {
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid rgba(255, 182, 217, 0.1);
+      padding: 4px 8px;
+      display: flex;
+      gap: 4px;
+    }
+    .menu-item {
+      padding: 4px 12px;
+      color: rgba(254, 205, 211, 0.8);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .menu-item:hover {
+      background: rgba(159, 18, 57, 0.3);
+    }
+    .toolbar {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 2px solid rgba(255, 182, 217, 0.2);
+      padding: 12px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .tool-section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .section-label {
+      color: rgba(254, 205, 211, 0.5);
+      font-size: 11px;
+      padding: 0 4px;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 48px);
+      gap: 2px;
+      padding: 4px;
+      background: rgba(2, 6, 23, 0.5);
+      border: 1px solid rgba(255, 182, 217, 0.1);
+    }
+    .tool-btn {
+      width: 48px;
+      height: 48px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      display: flex;
+      align-items: center;
+      justify-center;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .tool-btn.active {
+      background: rgba(225, 29, 72, 0.8);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .color-section {
+      padding: 8px;
+      background: rgba(2, 6, 23, 0.5);
+      border: 1px solid rgba(255, 182, 217, 0.1);
+    }
+    .color-boxes {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .color-box {
+      width: 32px;
+      height: 32px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
+    .color-swatches {
+      display: grid;
+      grid-template-columns: repeat(8, 20px);
+      gap: 2px;
+    }
+    .swatch {
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      cursor: pointer;
+    }
+    .canvas-area {
+      padding: 16px;
+      background: #0a0a0a;
+    }
+    .canvas {
+      width: 100%;
+      height: 400px;
+      background: #0a0a0a;
+      border: 2px solid rgba(255, 182, 217, 0.2);
+      border-radius: 8px;
+      position: relative;
+    }
+    .canvas-corner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(251, 113, 133, 0.4);
+    }
+    .canvas-corner.tl { top: -12px; left: -12px; border-right: none; border-bottom: none; }
+    .canvas-corner.tr { top: -12px; right: -12px; border-left: none; border-bottom: none; }
+    .canvas-corner.bl { bottom: -12px; left: -12px; border-right: none; border-top: none; }
+    .canvas-corner.br { bottom: -12px; right: -12px; border-left: none; border-top: none; }
+    .status-bar {
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 2px solid rgba(255, 182, 217, 0.2);
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(254, 205, 211, 0.6);
+    }
+    .status-left {
+      display: flex;
+      gap: 16px;
+    }
+    .status-right {
+      display: flex;
+      gap: 12px;
+    }
+    .highlight {
+      background: rgba(251, 113, 133, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px dashed rgba(251, 113, 133, 0.3);
+    }
+    .note {
+      background: rgba(251, 113, 133, 0.05);
+      border-left: 3px solid #b02e2e;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Art Studio - MS Paint Gothic Style Preview</h1>
+    
+    <div class="note">
+      <strong>📍 To see the actual Art Studio:</strong><br>
+      1. Navigate to <code>http://localhost:5173/art-studio</code><br>
+      2. Make sure you're signed in<br>
+      3. Look for these elements below ⬇️
+    </div>
+
+    <h2>Visual Mockup (What You Should See)</h2>
+    
+    <div class="mockup">
+      <!-- Title Bar -->
+      <div class="title-bar">
+        <div class="title-bar-left">
+          <div class="app-icon">🖌</div>
+          <span class="app-title">Haunted Paint</span>
+          <span class="filename">— untitled.png</span>
+        </div>
+        <div class="window-controls">
+          <div class="window-btn">_</div>
+          <div class="window-btn">□</div>
+          <div class="window-btn">✕</div>
+        </div>
+      </div>
+
+      <!-- Menu Bar -->
+      <div class="menu-bar">
+        <div class="menu-item">File</div>
+        <div class="menu-item">Edit</div>
+        <div class="menu-item">View</div>
+        <div class="menu-item">Image</div>
+        <div class="menu-item">Colors</div>
+        <div class="menu-item">Help</div>
+        <div style="margin-left: auto; display: flex; gap: 12px;">
+          <div class="menu-item">👻 Haunted</div>
+          <div class="menu-item">📋 Show Layers</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <!-- Tools -->
+        <div class="tool-section">
+          <div class="section-label">Tools</div>
+          <div class="tool-grid">
+            <div class="tool-btn active">🖌️</div>
+            <div class="tool-btn">🧹</div>
+            <div class="tool-btn">📏</div>
+            <div class="tool-btn">▭</div>
+            <div class="tool-btn">⬭</div>
+            <div class="tool-btn">🪣</div>
+            <div class="tool-btn">𝐓</div>
+            <div class="tool-btn">💧</div>
+            <div class="tool-btn">⬚</div>
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="tool-section">
+          <div class="section-label">Colors</div>
+          <div class="color-section">
+            <div class="color-boxes">
+              <div class="color-box" style="background: #b02e2e;"></div>
+              <div style="font-size: 10px; color: rgba(254, 205, 211, 0.6);">
+                Primary<br>#b02e2e
+              </div>
+            </div>
+            <div class="color-swatches">
+              <div class="swatch" style="background: #000000;"></div>
+              <div class="swatch" style="background: #FFFFFF;"></div>
+              <div class="swatch" style="background: #b02e2e;"></div>
+              <div class="swatch" style="background: #ffb6d9;"></div>
+              <div class="swatch" style="background: #8B0000;"></div>
+              <div class="swatch" style="background: #4a5a3a;"></div>
+              <div class="swatch" style="background: #2a2a2a;"></div>
+              <div class="swatch" style="background: #696969;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brush Settings -->
+        <div class="tool-section">
+          <div class="section-label">Brush</div>
+          <div class="color-section" style="min-width: 220px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span style="font-size: 11px; width: 48px;">Size:</span>
+              <input type="range" min="1" max="60" value="8" style="flex: 1;">
+              <span style="font-size: 11px; width: 32px; text-align: right;">8</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 11px; width: 48px;">Opacity:</span>
+              <input type="range" min="0" max="100" value="95" style="flex: 1;">
+              <span style="font-size: 11px; width: 32px; text-align: right;">95</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="margin-left: auto; display: flex; gap: 4px; align-items: flex-end;">
+          <button style="padding: 4px 8px; background: #1e293b; border: 1px solid #475569; color: #fecdd3; font-size: 12px; cursor: pointer;">↶ Undo</button>
+          <button style="padding: 4px 8px; background: #1e293b; border: 1px solid #475569; color: #fecdd3; font-size: 12px; cursor: pointer;">↷ Redo</button>
+          <div style="width: 1px; height: 24px; background: rgba(51, 65, 85, 0.5); margin: 0 4px;"></div>
+          <button style="padding: 4px 8px; background: #1e293b; border: 1px solid #475569; color: #fecdd3; font-size: 12px; cursor: pointer;">Clear</button>
+          <button style="padding: 4px 8px; background: #1e293b; border: 1px solid #475569; color: #fecdd3; font-size: 12px; cursor: pointer;">+ Layer</button>
+          <div style="width: 1px; height: 24px; background: rgba(51, 65, 85, 0.5); margin: 0 4px;"></div>
+          <button style="padding: 4px 8px; background: #1e293b; border: 1px solid #475569; color: #fecdd3; font-size: 12px; cursor: pointer;">📂 Open</button>
+          <button style="padding: 4px 12px; background: rgba(225, 29, 72, 0.8); border: 1px solid #e11d48; color: white; font-size: 12px; cursor: pointer; font-weight: 500;">💾 Save</button>
+        </div>
+      </div>
+
+      <!-- Canvas Area -->
+      <div class="canvas-area">
+        <div class="canvas">
+          <div class="canvas-corner tl"></div>
+          <div class="canvas-corner tr"></div>
+          <div class="canvas-corner bl"></div>
+          <div class="canvas-corner br"></div>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: rgba(255, 182, 217, 0.3);">
+            <div style="font-size: 48px; margin-bottom: 8px;">🎨</div>
+            <div>Drawing Canvas</div>
+            <div style="font-size: 12px; margin-top: 4px;">1200 × 800px</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <div class="status-left">
+          <span>Canvas: 1200 × 800px</span>
+          <span style="color: rgba(251, 113, 133, 0.4);">|</span>
+          <span>Tool: Brush</span>
+          <span style="color: rgba(251, 113, 133, 0.4);">|</span>
+          <span>Layers: 1</span>
+        </div>
+        <div class="status-right">
+          <span style="color: rgba(251, 113, 133, 0.7);">Ready</span>
+          <span style="color: rgba(239, 68, 68, 0.7); animation: pulse 2s infinite;">👻 Haunted</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Key Changes to Look For</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div class="note">
+        <strong>✅ Title Bar</strong><br>
+        • "Haunted Paint" with brush icon<br>
+        • "— untitled.png" filename<br>
+        • Window controls (_, □, ✕)
+      </div>
+      <div class="note">
+        <strong>✅ Menu Bar</strong><br>
+        • File, Edit, View, Image, Colors, Help<br>
+        • Gothic Mode toggle<br>
+        • Show/Hide Layers button
+      </div>
+      <div class="note">
+        <strong>✅ Tool Grid</strong><br>
+        • 3×3 grid layout<br>
+        • Square 48px buttons<br>
+        • Active tool highlighted
+      </div>
+      <div class="note">
+        <strong>✅ Color Palette</strong><br>
+        • Primary/Secondary boxes<br>
+        • 8 quick color swatches<br>
+        • MS Paint style
+      </div>
+      <div class="note">
+        <strong>✅ Status Bar</strong><br>
+        • Canvas dimensions<br>
+        • Current tool<br>
+        • Layer count<br>
+        • Haunted indicator
+      </div>
+      <div class="note">
+        <strong>✅ Flat Buttons</strong><br>
+        • Bordered style<br>
+        • Compact spacing<br>
+        • MS Paint aesthetic
+      </div>
+    </div>
+
+    <div class="note" style="background: rgba(251, 113, 133, 0.1); border-color: #e11d48;">
+      <strong>🔍 Still Don't See It?</strong><br>
+      1. Hard refresh: <code>Ctrl+Shift+R</code> (Windows) or <code>Cmd+Shift+R</code> (Mac)<br>
+      2. Check URL is exactly: <code>http://localhost:5173/art-studio</code><br>
+      3. Verify you're signed in (Art Studio requires authentication)<br>
+      4. Check browser console (F12) for errors<br>
+      5. Try restarting dev server: <code>npm run dev</code>
+    </div>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+  </style>
+</body>
+</html>

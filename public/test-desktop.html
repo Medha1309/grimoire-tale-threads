@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        h2 { color: #666; margin-top: 0; }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0078D7;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #005a9e;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .checklist li:before {
+            content: "☐ ";
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖥️ Windows 98 Desktop Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Quick Access</h2>
+        <a href="/desktop" class="button">Go to Desktop</a>
+        <a href="/login" class="button">Login Page</a>
+        <a href="/" class="button">Home</a>
+    </div>
+
+    <div class="test-section">
+        <h2>Pre-flight Checklist</h2>
+        <ul class="checklist">
+            <li>Dev server is running (<code>npm run dev</code>)</li>
+            <li>You are logged in (required for desktop access)</li>
+            <li>Browser console is open (F12) to see errors</li>
+            <li>URL is <code>http://localhost:5173/desktop</code></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>What Should You See?</h2>
+        <ul>
+            <li><strong>Background:</strong> Teal gradient (#008080)</li>
+            <li><strong>Desktop Icons:</strong> 8 icons in top-left (My Diary, Stories, Art Studio, etc.)</li>
+            <li><strong>Taskbar:</strong> Gray bar at bottom with Start button and clock</li>
+            <li><strong>Start Menu:</strong> Opens when you click Start button</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Troubleshooting</h2>
+        <p><strong>If you see a blank page:</strong></p>
+        <ul>
+            <li>Check browser console (F12) for errors</li>
+            <li>Make sure you're logged in</li>
+            <li>Try refreshing the page</li>
+        </ul>
+        
+        <p><strong>If you're redirected to login:</strong></p>
+        <ul>
+            <li>The desktop requires authentication</li>
+            <li>Log in first, then navigate to /desktop</li>
+        </ul>
+        
+        <p><strong>If you see errors:</strong></p>
+        <ul>
+            <li>Check that <code>react-draggable</code> is installed</li>
+            <li>Run: <code>npm install react-draggable --legacy-peer-deps</code></li>
+            <li>Restart the dev server</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Component Files</h2>
+        <p>These files should exist:</p>
+        <ul>
+            <li><code>src/pages/Desktop.tsx</code></li>
+            <li><code>src/components/retro/DesktopShell.tsx</code></li>
+            <li><code>src/components/retro/Windows98Window.tsx</code></li>
+            <li><code>src/components/retro/DesktopIcon.tsx</code></li>
+            <li><code>src/components/retro/Taskbar.tsx</code></li>
+            <li><code>src/components/retro/StartMenu.tsx</code></li>
+            <li><code>src/design-system/retro-tokens.ts</code></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Navigation</h2>
+        <p>Try these links to test if routing works:</p>
+        <a href="/stories" class="button">Stories</a>
+        <a href="/forum" class="button">Forum</a>
+        <a href="/forum/facebook" class="button">Facebook Forum</a>
+        <a href="/desktop" class="button">Desktop</a>
+    </div>
+
+    <script>
+        console.log('Desktop Test Page Loaded');
+        console.log('Current URL:', window.location.href);
+        console.log('Click "Go to Desktop" button to test');
+    </script>
+</body>
+</html>

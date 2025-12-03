@@ -1,0 +1,9 @@
+🎨 PLACE YOUR IMAGE HERE
+
+Save your beautiful moonlit forest image as:
+forest-moon.jpg
+
+This folder path:
+public/images/forest-moon.jpg
+
+Then refresh your browser!
