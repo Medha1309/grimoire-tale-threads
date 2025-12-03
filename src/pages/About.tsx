@@ -32,7 +32,7 @@ const POLAROIDS: Polaroid[] = [
     id: 'boudoir',
     title: 'The Boudoir',
     description: ['Private diary rooms', 'Art studio', 'Memory scrapbook'],
-    route: '/dollhouse',
+    route: '/diary',
   },
   {
     id: 'chains',
@@ -314,6 +314,7 @@ const AboutContent: React.FC = () => {
                 return (
                   <motion.div
                     key={polaroid.id}
+                    data-polaroid={polaroid.id}
                     className="absolute cursor-pointer"
                     style={{ 
                       ...position,
