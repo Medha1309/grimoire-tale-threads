@@ -134,7 +134,7 @@ export const DollhouseHomeView: React.FC<DollhouseHomeViewProps> = ({
           transition={{ duration: 0.4 }}
           className="mb-8"
         >
-          <DollhouseBackButton onClick={onBack} label="Exit Dollhouse" />
+          <DollhouseBackButton onClick={onBack} label="Exit Boudoir" />
         </motion.div>
       )}
 

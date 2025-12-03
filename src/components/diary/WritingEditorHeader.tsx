@@ -55,7 +55,7 @@ export const WritingEditorHeader: React.FC<WritingEditorHeaderProps> = ({
             className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
           >
             <span>←</span>
-            <span className="font-serif">Back to Diary</span>
+            <span className="font-serif">Back to Boudoir</span>
           </button>
 
           <div className="flex items-center gap-6">
