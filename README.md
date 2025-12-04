@@ -6,9 +6,6 @@
 
 > A gothic storytelling platform combining nostalgia, modern UX, and collaborative narrative creation — built with Kiro AI-assisted development.
 
-**Live Demo:** [{{DEMO_URL}}]({{DEMO_URL}})  
-**Category:** Costume Contest (with Frankenstein elements)
-
 ---
 
 ## Table of Contents
@@ -376,43 +373,13 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
 
 ---
 
-## For Judges
-
-### Testing the Live Demo
-
-**Demo URL:** [{{DEMO_URL}}]({{DEMO_URL}})
-
-**Test Credentials:**
-- **Username:** `judge@grimoire.test`
-- **Password:** `JudgeDemo2024!`
-
-### Step-by-Step Demo Script
-
-See [demo-script.md](./demo-script.md) for a complete walkthrough.
-
-**Quick Test Flow:**
-1. Log in with test credentials
-2. Navigate to Dollhouse → Diary → Create entry
-3. Visit Tale Threads → Create project → Submit proposal → Vote
-4. Explore Chains → Create session → Invite participant
-5. Check Gilded Parlour → Browse threads → Post comment
-6. Visit Library → Read story → Save quote
-
-### Running Locally
-
-Follow [Getting Started](#getting-started) instructions above.
-
-**Note:** You'll need your own Firebase project. See [TESTING_INSTRUCTIONS.md](./TESTING_INSTRUCTIONS.md).
-
-### Verifying Kiro Usage
+## Development with Kiro
 
 The `.kiro/` directory at the project root contains:
 - **specs/** — Feature specifications used for development
 - **hooks/** — Agent hook configurations
 - **steering.md** — Steering document for context preservation
 - **README.md** — Detailed explanation of Kiro usage
-
-**CI Check:** Our GitHub Actions workflow fails if `.kiro/` is missing.
 
 ### Security
 
@@ -443,5 +410,4 @@ This project is licensed under the **MIT License** — see the [LICENSE](./LICEN
 
 ---
 
-**Built for the Kiro Hackathon 2025**  
 **Repository:** [github.com/Medha1309/grimoire-tale-threads](https://github.com/Medha1309/grimoire-tale-threads)
