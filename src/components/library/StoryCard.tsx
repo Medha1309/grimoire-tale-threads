@@ -2,7 +2,7 @@ import React, { useState, memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { Genre, getGenreAtmosphere } from "../../utils/genreAtmospheres";
-import { typography, cards, badges } from "../../utils/themeClasses";
+import { typography } from "../../utils/themeClasses";
 
 interface StoryCardProps {
   slug: string;

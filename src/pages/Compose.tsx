@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavigationProps } from "../types";
-import { useAuth } from "../contexts/AuthContext";
+// useAuth available but not currently used
 import { BackButton } from "../components/shared/NavigationButtons";
 import { useUserStories } from "../hooks/useUserStories";
 import { useNavigation } from "../hooks/useNavigation";

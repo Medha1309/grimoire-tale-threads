@@ -66,7 +66,7 @@ export const useProposalActions = () => {
         )
       );
 
-      if (openProposals.size >= project.maxOpenProposals) {
+      if (project.maxOpenProposals && openProposals.size >= project.maxOpenProposals) {
         throw new Error('Maximum open proposals reached');
       }
 
@@ -360,8 +360,10 @@ export const useProposalActions = () => {
       }
 
       // Get current version
-      const currentVersionDoc = await getDoc(doc(db, 'versions', project.currentVersionId));
-      const currentVersion = currentVersionDoc.data();
+      const currentVersionDoc = project.currentVersionId 
+        ? await getDoc(doc(db, 'versions', project.currentVersionId))
+        : null;
+      const currentVersion = currentVersionDoc?.data();
 
       // Create new version
       const newVersionData = {

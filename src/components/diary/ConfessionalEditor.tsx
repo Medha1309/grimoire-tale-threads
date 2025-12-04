@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// Framer Motion available for future animations
 import { DiaryEntry } from '../../types/diary';
 import { HistoryLogPanel } from './HistoryLogPanel';
 import { ConfessionChamber } from './ConfessionChamber';

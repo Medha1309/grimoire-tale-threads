@@ -11,29 +11,28 @@ export function computeDiff(original: string, modified: string): ContentChange[]
   dmp.diff_cleanupSemantic(diffs);
   
   const changes: ContentChange[] = [];
-  let position = 0;
+  let lineNumber = 1;
   
   for (const [operation, text] of diffs) {
     if (operation === 1) {
-      // Insert
+      // Insert/Added
       changes.push({
-        type: 'insert',
-        position,
-        newText: text,
-        length: text.length,
+        type: 'added',
+        lineNumber,
+        content: text,
       });
     } else if (operation === -1) {
-      // Delete
+      // Delete/Removed
       changes.push({
-        type: 'delete',
-        position,
-        oldText: text,
-        length: text.length,
+        type: 'removed',
+        lineNumber,
+        content: text,
+        oldContent: text,
       });
-      position += text.length;
+      lineNumber += text.split('\n').length - 1;
     } else {
       // Equal (no change)
-      position += text.length;
+      lineNumber += text.split('\n').length - 1;
     }
   }
   
@@ -44,28 +43,24 @@ export function computeDiff(original: string, modified: string): ContentChange[]
  * Apply diff changes to original text
  */
 export function applyDiff(original: string, changes: ContentChange[]): string {
-  let result = original;
-  let offset = 0;
+  const lines = original.split('\n');
   
-  // Sort changes by position
-  const sortedChanges = [...changes].sort((a, b) => a.position - b.position);
+  // Sort changes by line number in reverse to avoid index shifting
+  const sortedChanges = [...changes].sort((a, b) => b.lineNumber - a.lineNumber);
   
   for (const change of sortedChanges) {
-    const pos = change.position + offset;
+    const lineIndex = change.lineNumber - 1;
     
-    if (change.type === 'insert') {
-      result = result.slice(0, pos) + (change.newText || '') + result.slice(pos);
-      offset += change.newText?.length || 0;
-    } else if (change.type === 'delete') {
-      result = result.slice(0, pos) + result.slice(pos + change.length);
-      offset -= change.length;
-    } else if (change.type === 'modify') {
-      result = result.slice(0, pos) + (change.newText || '') + result.slice(pos + change.length);
-      offset += (change.newText?.length || 0) - change.length;
+    if (change.type === 'added') {
+      lines.splice(lineIndex, 0, change.content);
+    } else if (change.type === 'removed') {
+      lines.splice(lineIndex, 1);
+    } else if (change.type === 'modified') {
+      lines[lineIndex] = change.content;
     }
   }
   
-  return result;
+  return lines.join('\n');
 }
 
 /**
@@ -120,12 +115,12 @@ export function getDiffStats(changes: ContentChange[]): {
   let modifications = 0;
   
   for (const change of changes) {
-    if (change.type === 'insert') {
-      additions += change.newText?.length || 0;
-    } else if (change.type === 'delete') {
-      deletions += change.length;
-    } else if (change.type === 'modify') {
-      modifications += change.length;
+    if (change.type === 'added') {
+      additions += change.content.length;
+    } else if (change.type === 'removed') {
+      deletions += change.content.length;
+    } else if (change.type === 'modified') {
+      modifications += change.content.length;
     }
   }
   

@@ -20,14 +20,17 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({ proposal, coAuthors,
     approved: { label: 'Approved', color: 'green', icon: 'A' },
     rejected: { label: 'Rejected', color: 'red', icon: 'R' },
     merged: { label: 'Merged', color: 'purple', icon: 'M' },
+    pending: { label: 'Pending', color: 'yellow', icon: 'P' },
+    expired: { label: 'Expired', color: 'gray', icon: 'E' },
   };
 
   const config = statusConfig[proposal.status];
-  const typeLabels = {
+  const typeLabels: Record<string, string> = {
     new_chapter: 'New Chapter',
     edit: 'Edit',
     character: 'Character',
     plot: 'Plot',
+    minor_edit: 'Minor Edit',
   };
 
   return (

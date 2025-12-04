@@ -4,7 +4,7 @@
  */
 
 import { CollaborativeProject, Proposal } from '../types/collaborativeStory';
-import { Timestamp } from 'firebase/firestore';
+
 
 export interface IntegrityMetrics {
   cohesionScore: number; // 0-100
@@ -75,7 +75,7 @@ export function calculateLatencyScore(
  * Calculate Overall Integrity Index
  */
 export function calculateIntegrityIndex(
-  project: CollaborativeProject,
+  _project: CollaborativeProject,
   proposals: Proposal[]
 ): IntegrityMetrics {
   // Count proposal statuses

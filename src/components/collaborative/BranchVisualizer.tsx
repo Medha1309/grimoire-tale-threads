@@ -37,7 +37,8 @@ export const BranchVisualizer: React.FC<BranchVisualizerProps> = ({
 
   // Build tree structure
   const mainBranch = branches.find(b => b.isCanonical);
-  const branchMap = new Map(branches.map(b => [b.id, b]));
+  // Branch map for future use
+  // const branchMap = new Map(branches.map(b => [b.id, b]));
   
   const toggleBranchPoint = (pointId: string) => {
     const newExpanded = new Set(expandedPoints);

@@ -4,9 +4,9 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ChainSession, ChainSegment } from '../../types/reflectionSession';
+import { ChainSession, ChainSegment, ChainParticipant } from '../../types/chainSession';
 import { useAuth } from '../../contexts/AuthContext';
-import { HashDisplay, SegmentWithHash } from '../collaborative/HashDisplay';
+import { SegmentWithHash } from '../collaborative/HashDisplay';
 import { Button } from '../shared/Button';
 
 interface DigitalSeanceSessionProps {
@@ -160,7 +160,7 @@ export const DigitalSeanceSession: React.FC<DigitalSeanceSessionProps> = ({
 
           {/* Participants */}
           <div className="flex flex-wrap gap-2">
-            {session.participants.map(p => {
+            {session.participants.map((p: ChainParticipant) => {
               const isLost = lostParticipants.has(p.userId);
               const isCurrent = session.currentTurn === p.userId;
               
@@ -286,12 +286,12 @@ export const DigitalSeanceSession: React.FC<DigitalSeanceSessionProps> = ({
         {/* Segment history */}
         <div className="space-y-3">
           <h3 className="text-lg font-semibold text-slate-300 font-mono">CHAIN HISTORY</h3>
-          {session.segments.map((segment, idx) => (
+          {session.segments.map((segment: ChainSegment) => (
             <SegmentWithHash
               key={segment.id}
               content={segment.content}
               hash={segment.hash}
-              author={segment.authorName}
+              author={segment.authorName || segment.author || 'Unknown'}
               timestamp={segment.createdAt.toDate()}
             />
           ))}

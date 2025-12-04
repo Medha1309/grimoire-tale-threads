@@ -1,4 +1,4 @@
-import React from "react";
+// React import removed - using JSX transform
 import { Book } from "../../hooks/useArchiveStorage";
 
 type Props = {

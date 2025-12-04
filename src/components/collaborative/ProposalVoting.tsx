@@ -3,7 +3,7 @@ import { Button } from '../shared/Button';
 import { useProposalActions } from '../../hooks/useProposalActions';
 import { useProposal } from '../../hooks/useProposals';
 import { VoteType } from '../../types/collaborativeStory';
-import { calculateVotingResult, formatTimeRemaining } from '../../utils/votingAlgorithm';
+import { formatTimeRemaining } from '../../utils/votingAlgorithm';
 import { LoadingSkeleton } from '../shared/LoadingSkeleton';
 
 // Icons
@@ -39,7 +39,7 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
   onVoteSuccess,
 }) => {
   const { proposal, votes, loading } = useProposal(proposalId);
-  const { submitVote, loading: submitting } = useProposalActions();
+  const { castVote, loading: submitting } = useProposalActions();
   
   const [selectedVote, setSelectedVote] = useState<VoteType | null>(null);
   const [comment, setComment] = useState('');
@@ -57,9 +57,19 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
     );
   }
 
-  const votingResult = calculateVotingResult(proposal, votes, totalEligibleVoters);
+  // Calculate vote breakdown from votes array
+  const approveCount = votes.filter((v) => v.type === 'approve').length;
+  const rejectCount = votes.filter((v) => v.type === 'reject').length;
+  const abstainCount = votes.filter((v) => v.type === 'abstain' || v.type === 'request_changes').length;
+  
+  const participationRate = totalEligibleVoters > 0 ? votes.length / totalEligibleVoters : 0;
+  const approvePercent = totalEligibleVoters > 0 ? (approveCount / totalEligibleVoters) * 100 : 0;
+  
+  const approved = approvePercent >= 60;
+  const requiredScore = 60;
+  
   const timeRemaining = formatTimeRemaining(proposal);
-  const votingClosed = proposal.status !== 'pending';
+  const votingClosed = proposal.status !== 'pending' && proposal.status !== 'voting';
 
   const handleVoteClick = (voteType: VoteType) => {
     if (userHasVoted || votingClosed) return;
@@ -72,7 +82,7 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
     if (!selectedVote) return;
 
     try {
-      await submitVote(proposalId, selectedVote, comment.trim() || undefined);
+      await castVote(proposalId, selectedVote, comment.trim() || undefined);
       setSelectedVote(null);
       setComment('');
       setShowCommentBox(false);
@@ -129,7 +139,7 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
           <div className="text-lg font-semibold text-stone-200">
             {votes.length} / {totalEligibleVoters}
             <span className="text-sm text-stone-400 ml-2">
-              ({Math.round(votingResult.participationRate * 100)}%)
+              ({Math.round(participationRate * 100)}%)
             </span>
           </div>
         </div>
@@ -143,7 +153,7 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
             <span className="font-semibold">Approve</span>
           </div>
           <div className="text-2xl font-bold text-emerald-300">
-            {votingResult.breakdown.approve}
+            {approveCount}
           </div>
         </div>
 
@@ -153,7 +163,7 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
             <span className="font-semibold">Reject</span>
           </div>
           <div className="text-2xl font-bold text-red-300">
-            {votingResult.breakdown.reject}
+            {rejectCount}
           </div>
         </div>
 
@@ -163,7 +173,7 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
             <span className="font-semibold">Abstain</span>
           </div>
           <div className="text-2xl font-bold text-amber-300">
-            {votingResult.breakdown.abstain}
+            {abstainCount}
           </div>
         </div>
       </div>
@@ -173,26 +183,26 @@ export const ProposalVoting: React.FC<ProposalVotingProps> = ({
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-stone-400">Approval Score</span>
           <span className="text-sm text-stone-400">
-            Required: {votingResult.requiredScore.toFixed(1)}
+            Required: {requiredScore}%
           </span>
         </div>
         
         <div className="relative h-4 bg-stone-700 rounded-full overflow-hidden">
           <div
             className={`absolute inset-y-0 left-0 rounded-full transition-all ${
-              votingResult.approved ? 'bg-emerald-500' : 'bg-amber-500'
+              approved ? 'bg-emerald-500' : 'bg-amber-500'
             }`}
             style={{
-              width: `${Math.min(100, (votingResult.score / votingResult.requiredScore) * 100)}%`,
+              width: `${Math.min(100, approvePercent)}%`,
             }}
           />
         </div>
         
         <div className="flex items-center justify-between mt-2">
           <span className="text-lg font-semibold text-stone-200">
-            {votingResult.score.toFixed(1)}
+            {approvePercent.toFixed(1)}%
           </span>
-          {votingResult.approved && (
+          {approved && (
             <span className="text-sm font-semibold text-emerald-400">
               ✓ Approved
             </span>

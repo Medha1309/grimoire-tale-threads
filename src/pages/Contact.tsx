@@ -10,7 +10,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { handleError } from "../utils/errorHandler";
 import { MESSAGES } from "../utils/messages";
-import { typography, buttons, inputs, cards, backgrounds } from "../utils/themeClasses";
+// Theme classes available but not currently used
 
 // Tea Room Interactive Components (unused for now)
 // @ts-ignore - Unused component for future feature

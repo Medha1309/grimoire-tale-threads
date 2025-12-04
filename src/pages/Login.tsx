@@ -6,7 +6,7 @@ import { AuthBackground } from "../components/auth/AuthBackground";
 import { Button as UIButton, Input, Alert } from "../components/ui";
 import { BackButton } from "../components/shared/Button";
 import { useAuthEffects } from "../hooks/useAuthEffects";
-import { typography, buttons, inputs, cards, backgrounds } from "../utils/themeClasses";
+// Theme classes available but not currently used
 
 interface LoginProps extends NavigationProps {}
 

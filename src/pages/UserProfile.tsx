@@ -8,7 +8,7 @@ import { FollowButton } from '../components/social/FollowButton';
 import { FollowStats } from '../components/social/FollowStats';
 import { useAuth } from '../contexts/AuthContext';
 import { BackButton } from '../components/shared/NavigationButtons';
-import { typography, cards, badges, backgrounds } from '../utils/themeClasses';
+import { typography, cards, backgrounds } from '../utils/themeClasses';
 
 export const UserProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();

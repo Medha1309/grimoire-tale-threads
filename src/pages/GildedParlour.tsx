@@ -15,7 +15,7 @@ import { UnifiedWritingModal, WritingModalField } from '../components/shared/Uni
 import { FORUM_TAGS } from '../types/forum';
 import { useForumPosts } from '../hooks/useForumPosts';
 import { useForumPost } from '../hooks/useForumPost';
-import { typography, buttons, backgrounds } from '../utils/themeClasses';
+// Theme classes available but not currently used
 
 // Elegant entrance curtain
 const CurtainReveal: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {

@@ -13,7 +13,6 @@ interface HauntedPacmanGameProps {
 
 const GRID_SIZE = 15;
 const CELL_SIZE = 24;
-const GHOST_COUNT = 3;
 const MOVE_INTERVAL = 200;
 
 // Simple maze layout (1 = wall, 0 = path, 2 = dot)

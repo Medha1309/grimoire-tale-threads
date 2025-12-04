@@ -68,7 +68,7 @@ export const ProposalEditor: React.FC<ProposalEditorProps> = ({
   onClose,
   projectId,
   originalText,
-  targetSection,
+  targetSection: _targetSection,
   initialType = 'minor_edit',
 }) => {
   const { createProposal, loading } = useProposalActions();
@@ -108,14 +108,12 @@ export const ProposalEditor: React.FC<ProposalEditorProps> = ({
     }
 
     try {
-      await createProposal(
-        projectId,
+      await createProposal(projectId, {
+        title: title.trim(),
+        description: description.trim(),
         type,
-        title.trim(),
-        description.trim(),
-        proposedText,
-        targetSection
-      );
+        content: proposedText,
+      });
       onClose();
     } catch (error) {
       // Error is handled by useProposalActions
