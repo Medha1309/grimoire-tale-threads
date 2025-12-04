@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Integration tests for Stories (Library) page
  * Tests the fully integrated library system
@@ -41,25 +42,25 @@ import { beforeEach } from 'vitest';
 import { describe } from 'vitest';
 
 // Mock dependencies
-jest.mock('../../hooks/useStories');
-jest.mock('../../hooks/useUserStories');
-jest.mock('../../contexts/AuthContext');
-jest.mock('../../hooks/useBookmarks');
-jest.mock('../../hooks/useNavigation', () => ({
+vi.mock('../../hooks/useStories');
+vi.mock('../../hooks/useUserStories');
+vi.mock('../../contexts/AuthContext');
+vi.mock('../../hooks/useBookmarks');
+vi.mock('../../hooks/useNavigation', () => ({
   useNavigation: () => ({
     goTo: {
-      home: jest.fn(),
-      stories: jest.fn(),
-      storyDetail: jest.fn(),
-      login: jest.fn(),
+      home: vi.fn(),
+      stories: vi.fn(),
+      storyDetail: vi.fn(),
+      login: vi.fn(),
     },
   }),
 }));
 
-const mockUseStories = useStories as jest.MockedFunction<typeof useStories>;
-const mockUseUserStories = useUserStories as jest.MockedFunction<typeof useUserStories>;
-const mockUseAuth = useAuth as jest.MockedFunction<typeof useAuth>;
-const mockUseBookmarks = useBookmarks as jest.MockedFunction<typeof useBookmarks>;
+const mockUseStories = useStories as ReturnType<typeof vi.fn>;
+const mockUseUserStories = useUserStories as ReturnType<typeof vi.fn>;
+const mockUseAuth = useAuth as ReturnType<typeof vi.fn>;
+const mockUseBookmarks = useBookmarks as ReturnType<typeof vi.fn>;
 
 describe('Stories (Library) Page', () => {
   const mockUserStories = [
@@ -95,16 +96,16 @@ describe('Stories (Library) Page', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     mockUseAuth.mockReturnValue({
       currentUser: { uid: 'test-user-123' } as any,
       userProfile: { displayName: 'Test User' } as any,
       loading: false,
-      signIn: jest.fn(),
-      signUp: jest.fn(),
-      signOut: jest.fn(),
-      updateProfile: jest.fn(),
+      signIn: vi.fn(),
+      signUp: vi.fn(),
+      signOut: vi.fn(),
+      updateProfile: vi.fn(),
     });
 
     mockUseStories.mockReturnValue({
@@ -113,24 +114,24 @@ describe('Stories (Library) Page', () => {
       curatedStories: mockCuratedStories,
       loading: false,
       error: null,
-      getStoryBySlug: jest.fn(),
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(),
+      getStoryBySlug: vi.fn(),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(),
     });
 
     mockUseUserStories.mockReturnValue({
       stories: [],
       loading: false,
       error: null,
-      createStory: jest.fn(),
-      updateStory: jest.fn(),
-      deleteStory: jest.fn(),
+      createStory: vi.fn(),
+      updateStory: vi.fn(),
+      deleteStory: vi.fn(),
     });
 
     mockUseBookmarks.mockReturnValue({
       bookmarkedSlugs: new Set(),
-      toggleBookmark: jest.fn(),
-      isBookmarked: jest.fn(),
+      toggleBookmark: vi.fn(),
+      isBookmarked: vi.fn(),
     });
   });
 
@@ -160,9 +161,9 @@ describe('Stories (Library) Page', () => {
       curatedStories: mockCuratedStories,
       loading: false,
       error: null,
-      getStoryBySlug: jest.fn(),
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(),
+      getStoryBySlug: vi.fn(),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(),
     });
 
     render(
@@ -195,22 +196,22 @@ describe('Stories (Library) Page', () => {
   });
 
   it('should redirect to login when unauthenticated user clicks write', async () => {
-    const mockGoToLogin = jest.fn();
+    const mockGoToLogin = vi.fn();
     mockUseAuth.mockReturnValue({
       currentUser: null,
       userProfile: null,
       loading: false,
-      signIn: jest.fn(),
-      signUp: jest.fn(),
-      signOut: jest.fn(),
-      updateProfile: jest.fn(),
+      signIn: vi.fn(),
+      signUp: vi.fn(),
+      signOut: vi.fn(),
+      updateProfile: vi.fn(),
     });
 
     jest.spyOn(require('../../hooks/useNavigation'), 'useNavigation').mockReturnValue({
       goTo: {
-        home: jest.fn(),
-        stories: jest.fn(),
-        storyDetail: jest.fn(),
+        home: vi.fn(),
+        stories: vi.fn(),
+        storyDetail: vi.fn(),
         login: mockGoToLogin,
       },
     });
@@ -228,13 +229,13 @@ describe('Stories (Library) Page', () => {
   });
 
   it('should handle story click navigation', async () => {
-    const mockGoToStoryDetail = jest.fn();
+    const mockGoToStoryDetail = vi.fn();
     jest.spyOn(require('../../hooks/useNavigation'), 'useNavigation').mockReturnValue({
       goTo: {
-        home: jest.fn(),
-        stories: jest.fn(),
+        home: vi.fn(),
+        stories: vi.fn(),
         storyDetail: mockGoToStoryDetail,
-        login: jest.fn(),
+        login: vi.fn(),
       },
     });
 
@@ -256,11 +257,11 @@ describe('Stories (Library) Page', () => {
   });
 
   it('should handle bookmark toggle', async () => {
-    const mockToggleBookmark = jest.fn();
+    const mockToggleBookmark = vi.fn();
     mockUseBookmarks.mockReturnValue({
       bookmarkedSlugs: new Set(),
       toggleBookmark: mockToggleBookmark,
-      isBookmarked: jest.fn(),
+      isBookmarked: vi.fn(),
     });
 
     render(
@@ -308,13 +309,13 @@ describe('Stories (Library) Page', () => {
   });
 
   it('should handle back button navigation', async () => {
-    const mockGoToHome = jest.fn();
+    const mockGoToHome = vi.fn();
     jest.spyOn(require('../../hooks/useNavigation'), 'useNavigation').mockReturnValue({
       goTo: {
         home: mockGoToHome,
-        stories: jest.fn(),
-        storyDetail: jest.fn(),
-        login: jest.fn(),
+        stories: vi.fn(),
+        storyDetail: vi.fn(),
+        login: vi.fn(),
       },
     });
 
@@ -342,3 +343,6 @@ describe('Stories (Library) Page', () => {
     });
   });
 });
+
+
+

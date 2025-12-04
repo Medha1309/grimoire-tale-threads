@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Tests for PhotoFilterSelector Component
  */
@@ -135,3 +136,5 @@ describe('getFilterStyle', () => {
     });
   });
 });
+
+

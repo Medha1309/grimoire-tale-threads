@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Chain Letters Integration Tests
  * Tests the complete chain letter system
@@ -296,3 +297,5 @@ describe('Chain Letter Card', () => {
     expect(isUrgent).toBe(true);
   });
 });
+
+

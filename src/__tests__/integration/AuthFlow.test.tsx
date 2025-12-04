@@ -1,16 +1,17 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import { Login } from '../../pages/Login';
 import { Signup } from '../../pages/SignUp';
 import { useAuth } from '../../contexts/AuthContext';
 
 // Mock AuthContext
-jest.mock('../../contexts/AuthContext');
-const mockUseAuth = useAuth as jest.MockedFunction<typeof useAuth>;
+vi.mock('../../contexts/AuthContext');
+const mockUseAuth = useAuth as ReturnType<typeof vi.fn>;
 
 // Mock framer-motion
-jest.mock('framer-motion', () => ({
+vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
     button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
@@ -18,15 +19,15 @@ jest.mock('framer-motion', () => ({
 }));
 
 // Mock auth components
-jest.mock('../../components/auth/AuthBackground', () => ({
+vi.mock('../../components/auth/AuthBackground', () => ({
   AuthBackground: () => <div data-testid="auth-background" />,
 }));
 
-jest.mock('../../components/auth/AuthFormContainer', () => ({
+vi.mock('../../components/auth/AuthFormContainer', () => ({
   AuthFormContainer: ({ children }: any) => <div data-testid="auth-form-container">{children}</div>,
 }));
 
-jest.mock('../../components/auth/AuthInput', () => ({
+vi.mock('../../components/auth/AuthInput', () => ({
   AuthInput: ({ label, name, value, onChange, type, placeholder }: any) => (
     <input
       data-testid={`input-${name}`}
@@ -40,7 +41,7 @@ jest.mock('../../components/auth/AuthInput', () => ({
   ),
 }));
 
-jest.mock('../../components/auth/AuthButton', () => ({
+vi.mock('../../components/auth/AuthButton', () => ({
   AuthButton: ({ children, onClick, type, disabled, variant }: any) => (
     <button
       data-testid={variant === 'google' ? 'google-button' : 'submit-button'}
@@ -53,7 +54,7 @@ jest.mock('../../components/auth/AuthButton', () => ({
   ),
 }));
 
-jest.mock('../../hooks/useAuthEffects', () => ({
+vi.mock('../../hooks/useAuthEffects', () => ({
   useAuthEffects: () => ({
     cursorPos: { x: 0, y: 0 },
     delayedCursor: { x: 0, y: 0 },
@@ -62,20 +63,20 @@ jest.mock('../../hooks/useAuthEffects', () => ({
 }));
 
 describe('Authentication Flow Integration', () => {
-  const mockGo = jest.fn();
-  const mockSignup = jest.fn();
-  const mockLogin = jest.fn();
-  const mockLoginWithGoogle = jest.fn();
-  const mockResetPassword = jest.fn();
+  const mockGo = vi.fn();
+  const mockSignup = vi.fn();
+  const mockLogin = vi.fn();
+  const mockLoginWithGoogle = vi.fn();
+  const mockResetPassword = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockUseAuth.mockReturnValue({
       signup: mockSignup,
       login: mockLogin,
       loginWithGoogle: mockLoginWithGoogle,
       resetPassword: mockResetPassword,
-      logout: jest.fn(),
+      logout: vi.fn(),
       currentUser: null,
       loading: false,
     });
@@ -271,3 +272,4 @@ describe('Authentication Flow Integration', () => {
     });
   });
 });
+

@@ -1,14 +1,16 @@
 import React from 'react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { DollhouseHomeView } from '../DollhouseHomeView';
 
 describe('DollhouseHomeView', () => {
-  const mockOnRoomHover = jest.fn();
-  const mockOnRoomLeave = jest.fn();
-  const mockOnNavigateToRoom = jest.fn();
+  const mockOnRoomHover = vi.fn();
+  const mockOnRoomLeave = vi.fn();
+  const mockOnNavigateToRoom = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should render all five rooms', () => {
@@ -165,3 +167,6 @@ describe('DollhouseHomeView', () => {
     expect(screen.getByText('Diary')).toBeInTheDocument();
   });
 });
+
+
+

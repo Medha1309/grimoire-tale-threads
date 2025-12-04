@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * End-to-end integration tests for Library system
  * Tests the complete workflow from browsing to reading stories
@@ -57,33 +58,33 @@ import { beforeEach } from 'vitest';
 import { describe } from 'vitest';
 
 // Mock all dependencies
-jest.mock('../../hooks/useStories');
-jest.mock('../../hooks/useUserStories');
-jest.mock('../../contexts/AuthContext');
-jest.mock('../../hooks/useBookmarks');
-jest.mock('../../hooks/useStoryInteractions');
-jest.mock('../../hooks/useNavigation', () => ({
+vi.mock('../../hooks/useStories');
+vi.mock('../../hooks/useUserStories');
+vi.mock('../../contexts/AuthContext');
+vi.mock('../../hooks/useBookmarks');
+vi.mock('../../hooks/useStoryInteractions');
+vi.mock('../../hooks/useNavigation', () => ({
   useNavigation: () => ({
     goTo: {
-      home: jest.fn(),
-      stories: jest.fn(),
+      home: vi.fn(),
+      stories: vi.fn(),
       storyDetail: (slug: string) => {
         window.history.pushState({}, '', `/story/${slug}`);
       },
-      reader: jest.fn(),
-      login: jest.fn(),
+      reader: vi.fn(),
+      login: vi.fn(),
     },
   }),
 }));
-jest.mock('../../components/CommentsSection', () => ({
+vi.mock('../../components/CommentsSection', () => ({
   CommentsSection: () => <div>Comments Section</div>,
 }));
 
-const mockUseStories = useStories as jest.MockedFunction<typeof useStories>;
-const mockUseUserStories = useUserStories as jest.MockedFunction<typeof useUserStories>;
-const mockUseAuth = useAuth as jest.MockedFunction<typeof useAuth>;
-const mockUseBookmarks = useBookmarks as jest.MockedFunction<typeof useBookmarks>;
-const mockUseStoryInteractions = useStoryInteractions as jest.MockedFunction<typeof useStoryInteractions>;
+const mockUseStories = useStories as ReturnType<typeof vi.fn>;
+const mockUseUserStories = useUserStories as ReturnType<typeof vi.fn>;
+const mockUseAuth = useAuth as ReturnType<typeof vi.fn>;
+const mockUseBookmarks = useBookmarks as ReturnType<typeof vi.fn>;
+const mockUseStoryInteractions = useStoryInteractions as ReturnType<typeof vi.fn>;
 
 describe('Library Integration Tests', () => {
   const mockUserStory = {
@@ -131,16 +132,16 @@ describe('Library Integration Tests', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     mockUseAuth.mockReturnValue({
       currentUser: { uid: 'test-user-123' } as any,
       userProfile: { displayName: 'Test User' } as any,
       loading: false,
-      signIn: jest.fn(),
-      signUp: jest.fn(),
-      signOut: jest.fn(),
-      updateProfile: jest.fn(),
+      signIn: vi.fn(),
+      signUp: vi.fn(),
+      signOut: vi.fn(),
+      updateProfile: vi.fn(),
     });
 
     mockUseStories.mockReturnValue({
@@ -155,23 +156,23 @@ describe('Library Integration Tests', () => {
         if (slug === 'whispering-shadows') return mockRelatedStory;
         return undefined;
       },
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(() => [mockRelatedStory]),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(() => [mockRelatedStory]),
     });
 
     mockUseUserStories.mockReturnValue({
       stories: [],
       loading: false,
       error: null,
-      createStory: jest.fn(),
-      updateStory: jest.fn(),
-      deleteStory: jest.fn(),
+      createStory: vi.fn(),
+      updateStory: vi.fn(),
+      deleteStory: vi.fn(),
     });
 
     mockUseBookmarks.mockReturnValue({
       bookmarkedSlugs: new Set(),
-      toggleBookmark: jest.fn(),
-      isBookmarked: jest.fn(),
+      toggleBookmark: vi.fn(),
+      isBookmarked: vi.fn(),
     });
 
     mockUseStoryInteractions.mockReturnValue({
@@ -191,9 +192,9 @@ describe('Library Integration Tests', () => {
       commentsCount: 15,
       loading: false,
       error: null,
-      toggleLike: jest.fn(),
-      toggleBookmark: jest.fn(),
-      rateStory: jest.fn(),
+      toggleLike: vi.fn(),
+      toggleBookmark: vi.fn(),
+      rateStory: vi.fn(),
     });
   });
 
@@ -292,7 +293,7 @@ describe('Library Integration Tests', () => {
   });
 
   it('should maintain bookmark state across navigation', async () => {
-    const mockToggleBookmark = jest.fn();
+    const mockToggleBookmark = vi.fn();
     const bookmarkedSlugs = new Set(['blackwood-manor']);
 
     mockUseBookmarks.mockReturnValue({
@@ -379,9 +380,9 @@ describe('Library Integration Tests', () => {
       curatedStories: [],
       loading: false,
       error: 'Failed to load stories',
-      getStoryBySlug: jest.fn(),
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(),
+      getStoryBySlug: vi.fn(),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(),
     });
 
     const App = () => (
@@ -443,3 +444,6 @@ describe('Library Integration Tests', () => {
     // (In real app, this would trigger navigation)
   });
 });
+
+
+

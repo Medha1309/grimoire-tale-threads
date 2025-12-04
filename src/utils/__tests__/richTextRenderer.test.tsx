@@ -1,3 +1,5 @@
+import React from 'react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import { renderRichText } from '../richTextRenderer';
 
@@ -226,3 +228,6 @@ describe('richTextRenderer', () => {
     });
   });
 });
+
+
+

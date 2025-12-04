@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Integration Tests for MemoryScrapbook Component
  */
@@ -200,3 +201,5 @@ describe('MemoryScrapbook', () => {
     }, { timeout: 2000 });
   });
 });
+
+

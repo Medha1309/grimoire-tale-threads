@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Tests for EnhancedScrapbookCard Component
  */
@@ -155,3 +156,5 @@ describe('EnhancedScrapbookCard', () => {
     // (1 % 3 - 1) * 3 = 0 degrees rotation
   });
 });
+
+

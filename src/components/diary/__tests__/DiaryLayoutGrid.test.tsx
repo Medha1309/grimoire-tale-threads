@@ -1,4 +1,6 @@
 import React from 'react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { DiaryLayoutGrid } from '../DiaryLayoutGrid';
 import { DiaryEntry } from '../../../types';
@@ -27,11 +29,11 @@ const mockEntries: DiaryEntry[] = [
 ];
 
 describe('DiaryLayoutGrid', () => {
-  const mockOnEntryClick = jest.fn();
-  const mockOnClearHighlight = jest.fn();
+  const mockOnEntryClick = vi.fn();
+  const mockOnClearHighlight = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should render book layout', () => {
@@ -159,3 +161,6 @@ describe('DiaryLayoutGrid', () => {
     expect(screen.getByText('Entry 1')).toBeInTheDocument();
   });
 });
+
+
+

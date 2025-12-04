@@ -1,3 +1,5 @@
+import React from 'react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 /**
  * Integration tests for StoryDetail page
  * Tests the integrated story detail view
@@ -11,24 +13,24 @@ import { useStories } from '../../hooks/useStories';
 import { useStoryInteractions } from '../../hooks/useStoryInteractions';
 
 // Mock dependencies
-jest.mock('../../hooks/useStories');
-jest.mock('../../hooks/useStoryInteractions');
-jest.mock('../../hooks/useNavigation', () => ({
+vi.mock('../../hooks/useStories');
+vi.mock('../../hooks/useStoryInteractions');
+vi.mock('../../hooks/useNavigation', () => ({
   useNavigation: () => ({
     goTo: {
-      stories: jest.fn(),
-      reader: jest.fn(),
-      login: jest.fn(),
-      storyDetail: jest.fn(),
+      stories: vi.fn(),
+      reader: vi.fn(),
+      login: vi.fn(),
+      storyDetail: vi.fn(),
     },
   }),
 }));
-jest.mock('../../components/CommentsSection', () => ({
+vi.mock('../../components/CommentsSection', () => ({
   CommentsSection: () => <div>Comments Section</div>,
 }));
 
-const mockUseStories = useStories as jest.MockedFunction<typeof useStories>;
-const mockUseStoryInteractions = useStoryInteractions as jest.MockedFunction<typeof useStoryInteractions>;
+const mockUseStories = useStories as ReturnType<typeof vi.fn>;
+const mockUseStoryInteractions = useStoryInteractions as ReturnType<typeof vi.fn>;
 
 describe('StoryDetail Page', () => {
   const mockStory = {
@@ -63,7 +65,7 @@ describe('StoryDetail Page', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     mockUseStories.mockReturnValue({
       allStories: [mockStory, ...mockRelatedStories],
@@ -72,8 +74,8 @@ describe('StoryDetail Page', () => {
       loading: false,
       error: null,
       getStoryBySlug: (slug: string) => (slug === 'blackwood-manor' ? mockStory : undefined),
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(() => mockRelatedStories),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(() => mockRelatedStories),
     });
 
     mockUseStoryInteractions.mockReturnValue({
@@ -93,9 +95,9 @@ describe('StoryDetail Page', () => {
       commentsCount: 15,
       loading: false,
       error: null,
-      toggleLike: jest.fn(),
-      toggleBookmark: jest.fn(),
-      rateStory: jest.fn(),
+      toggleLike: vi.fn(),
+      toggleBookmark: vi.fn(),
+      rateStory: vi.fn(),
     });
   });
 
@@ -157,8 +159,8 @@ describe('StoryDetail Page', () => {
       loading: false,
       error: null,
       getStoryBySlug: () => userStory,
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(),
     });
 
     render(
@@ -179,7 +181,7 @@ describe('StoryDetail Page', () => {
   });
 
   it('should handle like button click', async () => {
-    const mockToggleLike = jest.fn();
+    const mockToggleLike = vi.fn();
     mockUseStoryInteractions.mockReturnValue({
       stats: { views: 100, likes: 10, bookmarks: 5, avgRating: 4.5, totalRatings: 20 },
       userInteraction: { liked: false, bookmarked: false, rated: false, rating: 0 },
@@ -187,8 +189,8 @@ describe('StoryDetail Page', () => {
       loading: false,
       error: null,
       toggleLike: mockToggleLike,
-      toggleBookmark: jest.fn(),
-      rateStory: jest.fn(),
+      toggleBookmark: vi.fn(),
+      rateStory: vi.fn(),
     });
 
     render(
@@ -216,16 +218,16 @@ describe('StoryDetail Page', () => {
   });
 
   it('should handle bookmark button click', async () => {
-    const mockToggleBookmark = jest.fn();
+    const mockToggleBookmark = vi.fn();
     mockUseStoryInteractions.mockReturnValue({
       stats: { views: 100, likes: 10, bookmarks: 5, avgRating: 4.5, totalRatings: 20 },
       userInteraction: { liked: false, bookmarked: false, rated: false, rating: 0 },
       commentsCount: 5,
       loading: false,
       error: null,
-      toggleLike: jest.fn(),
+      toggleLike: vi.fn(),
       toggleBookmark: mockToggleBookmark,
-      rateStory: jest.fn(),
+      rateStory: vi.fn(),
     });
 
     render(
@@ -253,15 +255,15 @@ describe('StoryDetail Page', () => {
   });
 
   it('should redirect to login when unauthenticated user tries to like', async () => {
-    const mockGoToLogin = jest.fn();
-    const mockToggleLike = jest.fn().mockRejectedValue(new Error('You must be logged in'));
+    const mockGoToLogin = vi.fn();
+    const mockToggleLike = vi.fn().mockRejectedValue(new Error('You must be logged in'));
 
     jest.spyOn(require('../../hooks/useNavigation'), 'useNavigation').mockReturnValue({
       goTo: {
-        stories: jest.fn(),
-        reader: jest.fn(),
+        stories: vi.fn(),
+        reader: vi.fn(),
         login: mockGoToLogin,
-        storyDetail: jest.fn(),
+        storyDetail: vi.fn(),
       },
     });
 
@@ -272,8 +274,8 @@ describe('StoryDetail Page', () => {
       loading: false,
       error: null,
       toggleLike: mockToggleLike,
-      toggleBookmark: jest.fn(),
-      rateStory: jest.fn(),
+      toggleBookmark: vi.fn(),
+      rateStory: vi.fn(),
     });
 
     render(
@@ -320,12 +322,12 @@ describe('StoryDetail Page', () => {
   });
 
   it('should handle related story click', async () => {
-    const mockGoToStoryDetail = jest.fn();
+    const mockGoToStoryDetail = vi.fn();
     jest.spyOn(require('../../hooks/useNavigation'), 'useNavigation').mockReturnValue({
       goTo: {
-        stories: jest.fn(),
-        reader: jest.fn(),
-        login: jest.fn(),
+        stories: vi.fn(),
+        reader: vi.fn(),
+        login: vi.fn(),
         storyDetail: mockGoToStoryDetail,
       },
     });
@@ -358,9 +360,9 @@ describe('StoryDetail Page', () => {
       curatedStories: [],
       loading: true,
       error: null,
-      getStoryBySlug: jest.fn(),
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(),
+      getStoryBySlug: vi.fn(),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(),
     });
 
     render(
@@ -384,8 +386,8 @@ describe('StoryDetail Page', () => {
       loading: false,
       error: null,
       getStoryBySlug: () => undefined,
-      getStoriesByAuthor: jest.fn(),
-      getStoriesByGenre: jest.fn(),
+      getStoriesByAuthor: vi.fn(),
+      getStoriesByGenre: vi.fn(),
     });
 
     render(
@@ -404,13 +406,13 @@ describe('StoryDetail Page', () => {
   });
 
   it('should handle start reading button click', async () => {
-    const mockGoToReader = jest.fn();
+    const mockGoToReader = vi.fn();
     jest.spyOn(require('../../hooks/useNavigation'), 'useNavigation').mockReturnValue({
       goTo: {
-        stories: jest.fn(),
+        stories: vi.fn(),
         reader: mockGoToReader,
-        login: jest.fn(),
-        storyDetail: jest.fn(),
+        login: vi.fn(),
+        storyDetail: vi.fn(),
       },
     });
 
@@ -434,3 +436,6 @@ describe('StoryDetail Page', () => {
     expect(mockGoToReader).toHaveBeenCalledWith('blackwood-manor');
   });
 });
+
+
+

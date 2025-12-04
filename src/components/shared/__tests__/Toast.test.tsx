@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import userEvent from '@testing-library/user-event';
@@ -182,3 +183,5 @@ describe('Toast Component', () => {
     expect(screen.queryByLabelText('Close notification')).not.toBeInTheDocument();
   });
 });
+
+

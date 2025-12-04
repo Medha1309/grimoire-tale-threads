@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Tests for StickerPicker Component
  */
@@ -111,3 +112,5 @@ describe('StickerPicker', () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 });
+
+

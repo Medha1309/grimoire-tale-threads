@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -121,3 +122,5 @@ describe('OuijaBoard Component', () => {
     expect(screen.getByText(/click letters to compose your message/i)).toBeInTheDocument();
   });
 });
+
+

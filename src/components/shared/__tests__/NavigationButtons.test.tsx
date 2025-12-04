@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Tests for Navigation Button Components
  */
@@ -287,3 +288,5 @@ describe('NavigationButtons', () => {
     });
   });
 });
+
+

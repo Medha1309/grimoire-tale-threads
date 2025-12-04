@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Integration Tests for Bookmark System
  */
@@ -182,3 +183,5 @@ describe('Bookmark System Integration', () => {
     expect(uniqueSlugs.size).toBeLessThanOrEqual(bookmarked.length);
   });
 });
+
+

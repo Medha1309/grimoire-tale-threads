@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useDiaryState } from '../useDiaryState';
 
@@ -161,3 +162,5 @@ describe('useDiaryState', () => {
     expect(result.current.savedEntry).toBeNull();
   });
 });
+
+

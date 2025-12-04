@@ -1,4 +1,6 @@
 import React from 'react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import BookCard from '../../components/archive/BookCard';
 import { Book } from '../../hooks/useArchiveStorage';
@@ -17,7 +19,7 @@ const mockBook: Book = {
 
 describe('BookCard', () => {
   it('should render book information', () => {
-    render(<BookCard book={mockBook} onOpen={jest.fn()} />);
+    render(<BookCard book={mockBook} onOpen={vi.fn()} />);
 
     expect(screen.getByText('Test Book')).toBeInTheDocument();
     expect(screen.getByText('Test Author')).toBeInTheDocument();
@@ -26,7 +28,7 @@ describe('BookCard', () => {
   });
 
   it('should display rating stars', () => {
-    render(<BookCard book={mockBook} onOpen={jest.fn()} />);
+    render(<BookCard book={mockBook} onOpen={vi.fn()} />);
 
     const stars = screen.getByLabelText('Rating: 4 stars');
     expect(stars).toBeInTheDocument();
@@ -34,7 +36,7 @@ describe('BookCard', () => {
   });
 
   it('should truncate long notes', () => {
-    render(<BookCard book={mockBook} onOpen={jest.fn()} />);
+    render(<BookCard book={mockBook} onOpen={vi.fn()} />);
 
     const noteText = screen.getByText(/This is a test note/);
     expect(noteText.textContent).toContain('…');
@@ -42,7 +44,7 @@ describe('BookCard', () => {
   });
 
   it('should call onOpen when View button clicked', () => {
-    const onOpen = jest.fn();
+    const onOpen = vi.fn();
     render(<BookCard book={mockBook} onOpen={onOpen} />);
 
     const viewButton = screen.getByRole('button', { name: /View details/i });
@@ -52,7 +54,7 @@ describe('BookCard', () => {
   });
 
   it('should call onOpen when Enter key pressed', () => {
-    const onOpen = jest.fn();
+    const onOpen = vi.fn();
     render(<BookCard book={mockBook} onOpen={onOpen} />);
 
     const card = screen.getByRole('article');
@@ -62,11 +64,11 @@ describe('BookCard', () => {
   });
 
   it('should handle selection checkbox', () => {
-    const onSelect = jest.fn();
+    const onSelect = vi.fn();
     render(
       <BookCard
         book={mockBook}
-        onOpen={jest.fn()}
+        onOpen={vi.fn()}
         selected={false}
         onSelect={onSelect}
       />
@@ -82,9 +84,9 @@ describe('BookCard', () => {
     render(
       <BookCard
         book={mockBook}
-        onOpen={jest.fn()}
+        onOpen={vi.fn()}
         selected={true}
-        onSelect={jest.fn()}
+        onSelect={vi.fn()}
       />
     );
 
@@ -93,7 +95,7 @@ describe('BookCard', () => {
   });
 
   it('should display formatted date', () => {
-    render(<BookCard book={mockBook} onOpen={jest.fn()} />);
+    render(<BookCard book={mockBook} onOpen={vi.fn()} />);
 
     // Date format depends on locale, just check it exists
     const dateText = screen.getByText(/1\/15\/2024|15\/1\/2024/);
@@ -106,7 +108,7 @@ describe('BookCard', () => {
       tags: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
     };
 
-    render(<BookCard book={bookWithManyTags} onOpen={jest.fn()} />);
+    render(<BookCard book={bookWithManyTags} onOpen={vi.fn()} />);
 
     expect(screen.getByText('tag1')).toBeInTheDocument();
     expect(screen.getByText('tag2')).toBeInTheDocument();
@@ -122,9 +124,12 @@ describe('BookCard', () => {
       updatedAt: '2024-01-15T00:00:00Z',
     };
 
-    render(<BookCard book={minimalBook} onOpen={jest.fn()} />);
+    render(<BookCard book={minimalBook} onOpen={vi.fn()} />);
 
     expect(screen.getByText('Minimal Book')).toBeInTheDocument();
     expect(screen.queryByLabelText(/Rating/)).not.toBeInTheDocument();
   });
 });
+
+
+

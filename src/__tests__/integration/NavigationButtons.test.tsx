@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Integration Tests for Navigation Buttons across Pages
  * Verifies that navigation buttons are properly integrated and functional
@@ -400,3 +401,5 @@ describe('Navigation Buttons Integration', () => {
     });
   });
 });
+
+

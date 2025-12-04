@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Tests for ScratchOffSecret Component
  */
@@ -116,3 +117,5 @@ describe('ScratchOffSecret', () => {
     expect(revealedDiv).toBeInTheDocument();
   });
 });
+
+

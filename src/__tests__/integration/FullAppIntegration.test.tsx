@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Full Application Integration Test
  * Tests that all major features work together without breaking
@@ -169,3 +170,5 @@ describe('Full Application Integration', () => {
     expect(typeof performance.measure).toBe('function');
   });
 });
+
+

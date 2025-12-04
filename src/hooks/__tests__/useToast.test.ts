@@ -124,3 +124,4 @@ describe('useToast Hook', () => {
     expect(result.current.showSuccess).toBe(initialShowSuccess);
   });
 });
+

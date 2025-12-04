@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { GildedParlour } from '../GildedParlour';
@@ -30,3 +31,5 @@ describe('GildedParlour Curtain Animation', () => {
     expect(curtainDivs.length).toBeGreaterThan(0);
   });
 });
+
+

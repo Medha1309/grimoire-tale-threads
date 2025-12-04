@@ -118,3 +118,4 @@ describe('useRoomLighting', () => {
     expect(result.current.possessedRoom).toBe(-1);
   });
 });
+

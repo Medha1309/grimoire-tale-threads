@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Navigation & Routing Tests
  * Comprehensive tests for navigation consistency and routing
@@ -247,4 +248,6 @@ describe('Route Accessibility', () => {
     expect(true).toBe(true);
   });
 });
+
+
 

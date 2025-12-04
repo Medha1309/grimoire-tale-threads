@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Scrapbook Component Tests
  */
@@ -385,3 +386,5 @@ describe('Edge Cases', () => {
     }).not.toThrow();
   });
 });
+
+

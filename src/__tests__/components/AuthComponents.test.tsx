@@ -1,4 +1,6 @@
 import React from 'react';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { AuthInput } from '../../components/auth/AuthInput';
@@ -6,7 +8,7 @@ import { AuthButton } from '../../components/auth/AuthButton';
 import { AuthFormContainer } from '../../components/auth/AuthFormContainer';
 
 // Mock framer-motion
-jest.mock('framer-motion', () => ({
+vi.mock('framer-motion', () => ({
   motion: {
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
     button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
@@ -16,7 +18,7 @@ jest.mock('framer-motion', () => ({
 describe('Auth Components', () => {
   describe('AuthInput', () => {
     it('renders input with label', () => {
-      const mockOnChange = jest.fn();
+      const mockOnChange = vi.fn();
       render(
         <AuthInput
           label="Email"
@@ -33,7 +35,7 @@ describe('Auth Components', () => {
     });
 
     it('handles input changes', () => {
-      const mockOnChange = jest.fn();
+      const mockOnChange = vi.fn();
       render(
         <AuthInput
           label="Email"
@@ -52,7 +54,7 @@ describe('Auth Components', () => {
     });
 
     it('displays current value', () => {
-      const mockOnChange = jest.fn();
+      const mockOnChange = vi.fn();
       render(
         <AuthInput
           label="Email"
@@ -87,7 +89,7 @@ describe('Auth Components', () => {
     });
 
     it('handles click events', () => {
-      const mockOnClick = jest.fn();
+      const mockOnClick = vi.fn();
       render(
         <AuthButton onClick={mockOnClick}>Click Me</AuthButton>
       );
@@ -147,3 +149,6 @@ describe('Auth Components', () => {
     });
   });
 });
+
+
+

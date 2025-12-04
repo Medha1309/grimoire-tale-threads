@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Integration Tests for Archive System
  */
@@ -298,3 +299,5 @@ describe('Archive System Integration', () => {
     });
   });
 });
+
+

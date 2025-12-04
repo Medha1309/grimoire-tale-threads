@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * Tests for StoryCard component
  * Ensures covers and interactions work correctly
@@ -67,7 +68,7 @@ describe('StoryCard', () => {
     blurb: 'A terrifying tale of horror and suspense...',
     reads: 1000,
     rating: 4.5,
-    onClick: jest.fn(),
+    onClick: vi.fn(),
     index: 0,
   };
 
@@ -113,7 +114,7 @@ describe('StoryCard', () => {
   });
 
   it('should call onClick when card is clicked', () => {
-    const mockOnClick = jest.fn();
+    const mockOnClick = vi.fn();
     render(<StoryCard {...defaultProps} onClick={mockOnClick} />);
 
     const card = screen.getByText('Test Horror Story').closest('article');
@@ -189,7 +190,7 @@ describe('StoryCard', () => {
       title: 'Test Story',
       author: 'Test Author',
       cover: 'https://example.com/cover.jpg',
-      onClick: jest.fn(),
+      onClick: vi.fn(),
       index: 0,
     };
 
@@ -266,3 +267,5 @@ describe('StoryCard', () => {
     }
   });
 });
+
+

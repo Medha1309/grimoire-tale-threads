@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
@@ -150,3 +151,5 @@ describe('Contact to SignUp Navigation Integration', () => {
     });
   });
 });
+
+
