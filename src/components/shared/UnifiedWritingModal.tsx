@@ -236,7 +236,7 @@ export const UnifiedWritingModal: React.FC<UnifiedWritingModalProps> = ({
           </div>
         );
 
-      case 'textarea':
+      case 'textarea': {
         const stats = getContentStats((value as string) || '');
         return (
           <div key={field.name}>
@@ -304,6 +304,7 @@ export const UnifiedWritingModal: React.FC<UnifiedWritingModalProps> = ({
             </div>
           </div>
         );
+      }
 
       case 'select':
         return (
@@ -329,7 +330,7 @@ export const UnifiedWritingModal: React.FC<UnifiedWritingModalProps> = ({
           </div>
         );
 
-      case 'multiselect':
+      case 'multiselect': {
         const selected = (value as string[]) || [];
         return (
           <div key={field.name}>
@@ -357,6 +358,7 @@ export const UnifiedWritingModal: React.FC<UnifiedWritingModalProps> = ({
             </div>
           </div>
         );
+      }
 
       case 'toggle':
         return (

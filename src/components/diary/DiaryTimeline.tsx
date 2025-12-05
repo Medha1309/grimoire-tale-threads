@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { DiaryEntry, MOOD_COLORS, MOOD_ICONS } from '../../types/diary';
+import { DiaryEntry, MOOD_COLORS, MOOD_ICONS, STICKER_LIBRARY } from '../../types/diary';
 
 interface DiaryTimelineProps {
   entries: DiaryEntry[];
@@ -52,7 +52,7 @@ export const DiaryTimeline: React.FC<DiaryTimelineProps> = ({ entries, onEntryCl
               {entry.stickers && entry.stickers.length > 0 && (
                 <div className="text-xs mt-1 opacity-70">
                   {entry.stickers.slice(0, 3).map((stickerId) => {
-                    const sticker = require('../../types/diary').STICKER_LIBRARY.find((s: any) => s.id === stickerId);
+                    const sticker = STICKER_LIBRARY.find((s) => s.id === stickerId);
                     return sticker ? sticker.emoji : '';
                   }).join(' ')}
                 </div>

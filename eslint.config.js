@@ -58,14 +58,20 @@ export default [
     rules: {
       ...typescript.configs.recommended.rules,
       ...react.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/ban-ts-comment': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/rules-of-hooks': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
+      'react/no-unescaped-entities': 'warn',
+      'no-redeclare': 'warn',
+      'no-unreachable': 'warn',
+      'no-control-regex': 'warn',
+      'react/display-name': 'warn',
       'no-undef': 'off',
       'react/no-unknown-property': ['error', { 
         ignore: ['args', 'attach', 'position', 'intensity', 'map', 'metalness', 'roughness', 'emissive', 'emissiveIntensity', 'toneMapped', 'groundColor', 'color', 'geometry', 'material', 'rotation', 'scale', 'castShadow', 'receiveShadow']

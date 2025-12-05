@@ -75,7 +75,7 @@ export const BoudoirTerminal: React.FC<BoudoirTerminalProps> = ({ onClose }) => 
         setTimeout(() => setActiveGame('haunted-pacman'), 500);
         break;
 
-      case 'stats':
+      case 'stats': {
         const ouroborosStats = getGameStats('ouroboros');
         const pacmanStats = getGameStats('haunted-pacman');
         const totalStats = getGameStats();
@@ -104,8 +104,9 @@ export const BoudoirTerminal: React.FC<BoudoirTerminalProps> = ({ onClose }) => 
         addOutput(`TOTAL GAMES: ${totalStats.totalGames}`);
         addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
         break;
+      }
 
-      case 'history':
+      case 'history': {
         const recent = getRecentSessions(5);
         addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
         addOutput('RECENT GAME SESSIONS');
@@ -124,6 +125,7 @@ export const BoudoirTerminal: React.FC<BoudoirTerminalProps> = ({ onClose }) => 
         }
         addOutput('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
         break;
+      }
 
       case 'clear':
         setHistory([

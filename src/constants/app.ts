@@ -229,7 +229,7 @@ export const PATTERNS = {
   USERNAME: /^[a-zA-Z0-9_-]+$/,
   URL: /^https?:\/\/.+/,
   HEX_COLOR: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
-  PHONE: /^[\d\s\-\+\(\)]+$/,
+  PHONE: /^[\d\s\-+()]+$/,
 } as const;
 
 // Error messages
